@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication4.WebForm1" %>
+﻿<%@ Page Language="C#" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication4.WebForm1" %>
 
 <!DOCTYPE html>
 
@@ -48,20 +48,19 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="MainTitle" runat="server" Font-Bold="True"  ForeColor="#003366" Text="Direct Measurement" style="text-align: center"></asp:Label>
         <asp:Label ID="Label4" runat="server" Text="Welcome! " Font-Bold="True" ForeColor="#003366"></asp:Label>
         <br />
-        <asp:Label ID="SecondaryTitle" runat="server" Font-Bold="True" ForeColor="#003366" Text="This site will make direct measurements. What you need to do is fill in the required data and the system will calculate for you the time standards."></asp:Label>
+        <asp:Label ID="SecondaryTitle" runat="server" Font-Bold="True" ForeColor="#003366" Text="This site will make direct measurements. What you need to do is to fill the data in required fields and The system will perform all the calculations and will present the solution"></asp:Label>
         <br />
         <br />
         <br />
         <br />
-        <asp:Label ID="Label2" runat="server" Text="cycel:" Font-Bold="True" Font-Size="Large" Font-Underline="True" style="font-size: x-large"></asp:Label>
+        <asp:Label ID="Label2" runat="server" Text="Please enter the number of cycles:" Font-Bold="True" Font-Size="Large" Font-Underline="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="cycBox" runat="server"></asp:TextBox>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="OK" BackColor="#F0F0F0" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" style="font-size: medium" />
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="OK" BackColor="#F0F0F0" MaintainScrollPositionOnPostback="true" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" style="font-size: medium" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button5" runat="server" OnClick="Button5_Click" Text="Clear Data" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" BackColor="#F0F0F0" style="font-size: medium" Visible="False" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button6" runat="server" OnClick="Button6_Click" Text="add data" Visible="False" BackColor="#F0F0F0" BorderWidth="1px" Font-Bold="True" Font-Size="Medium" ForeColor="#003366" />
         <br />
         <br />
         <asp:Label ID="error" runat="server" Font-Bold="True" ForeColor="#A60000" style="font-size: x-large"></asp:Label>
@@ -69,7 +68,7 @@
         <br />
         <br />
         <br />
-        <asp:GridView ID="table" runat="server" OnRowCommand="GridView1_RowCommand" BackColor="White" BorderColor="Black" BorderStyle="Double" Font-Bold="True" Font-Size="Large" ForeColor="Black" Height="35px" HorizontalAlign="Justify" style="position: relative; top: 0px; left: 0px; width: 550px" display="table">
+        <asp:GridView ID="table" runat="server" OnRowCommand="GridView1_RowCommand" BackColor="White" BorderColor="Black" BorderStyle="Double" Font-Bold="True" Font-Size="Large" ForeColor="Black" HorizontalAlign="Justify" style="position: relative; top: 0px; left: 0px; width: 730px; height: 192px;" display="table">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:ButtonField CommandName="edit" HeaderText="edit" Text="edit" />
@@ -84,27 +83,25 @@
         <br />
         <br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="add element" Visible="False" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" BorderColor="#003366" style="font-size: medium" />
+        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="add element" Visible="False" BorderWidth="1px" MaintainScrollPositionOnPostback="true" Font-Bold="True" ForeColor="#003366" BorderColor="#003366" style="font-size: medium" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="end" Visible="False" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" BorderColor="#003366" style="font-size: medium" />
+        <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="end" Visible="False" BorderWidth="1px" Font-Bold="True" MaintainScrollPositionOnPostback="true" ForeColor="#003366" BorderColor="#003366" style="font-size: medium" />
         <br />
         <br />
-        <asp:Label ID="Label3" runat="server" Text="Insert level of reliability (k):" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large"></asp:Label>
-&nbsp;&nbsp;&nbsp;
+        <br />
+        <asp:Label ID="Label3" runat="server" Text="To calculate standard time insert level of reliability, according to the value in the normal distribution :" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
+&nbsp;&nbsp;&nbsp;<br />
+        <br />
+&nbsp;<br />
         <asp:TextBox ID="TextBox1" runat="server" Visible="False"></asp:TextBox>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="OK" Visible="False" BorderWidth="1px" MaintainScrollPositionOnPostback="true" Font-Bold="True" ForeColor="#003366" BorderColor="#003366" style="font-size: medium" />
+        &nbsp;&nbsp;
         <br />
-        <br />
-        <asp:Label ID="Label7" runat="server" Text="Insert inaccuracy permitted (r):" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large"></asp:Label>
         &nbsp;&nbsp;&nbsp;
-        <asp:TextBox ID="TextBox2" runat="server" Visible="False"></asp:TextBox>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="OK" Visible="False" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" BorderColor="#003366" style="font-size: medium" />
         <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
         <br />
-        <br />
-        <asp:Label ID="Label6" runat="server" Font-Bold="True" Font-Size="X-Large"></asp:Label>
         <asp:GridView ID="table2" runat="server" Visible="False" BorderColor="Black" BorderStyle="Double" Font-Bold="True" Font-Size="Large" HorizontalAlign="Center" style="position: relative; top: 0px; left: 0px; width: 650px" display="table">
             <FooterStyle BackColor="White" BorderColor="Red" />
             <HeaderStyle BackColor="#F0F0F0" />
@@ -112,36 +109,42 @@
             <RowStyle BackColor="White" HorizontalAlign="Center" />
         </asp:GridView>
         <br />
-&nbsp;<asp:Label ID="Label5" runat="server" Text="General Standard Time (Z):" Visible="False" Font-Bold="True" Font-Size="X-Large"></asp:Label>
+        <br />
+&nbsp;<asp:Label ID="Label5" runat="server" Text="General Standard Time:" Visible="False" Font-Bold="True" Font-Size="X-Large"></asp:Label>
         &nbsp;&nbsp;&nbsp;
         <asp:Label ID="Label12" runat="server" Visible="False" Font-Bold="True" Font-Overline="False" Font-Size="X-Large" ForeColor="#990033"></asp:Label>
         <br />
         <br />
         <br />
-&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button7" runat="server" OnClick="Button7_Click" Text="more table" Visible="False" BorderWidth="1px" Font-Bold="True" Font-Size="Medium" ForeColor="#003366" />
+        <asp:Label ID="Label7" runat="server" Text="Insert inaccuracy permitted:" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
+        <asp:TextBox ID="TextBox2" runat="server" Visible="False"></asp:TextBox>
         <br />
         <br />
-        <asp:Label ID="Label10" runat="server" Text="The number of cycles required" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large"></asp:Label>
-        &nbsp;&nbsp;
+        <br />
+        <asp:Label ID="Label10" runat="server" Text="To calculate number of observations required, please enter minimum time prencentage for a cycle  " Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox3" runat="server" Visible="False" Width="41px"></asp:TextBox>
         &nbsp;&nbsp;
         <asp:Label ID="Label14" runat="server" Text="%" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large"></asp:Label>
-        &nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button10" runat="server" OnClick="Button8_Click" Text="OK" Visible="False" BorderWidth="1px" Font-Bold="True" Font-Size="Medium" ForeColor="#003366" />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="Button10" runat="server" OnClick="Button8_Click" Text="OK" Visible="False" MaintainScrollPositionOnPostback="true" BorderWidth="1px" Font-Bold="True" Font-Size="Medium" ForeColor="#003366" />
         <br />
         <br />
         <br />
-        <asp:GridView ID="table3" runat="server" Visible="False" BorderColor="Black" BorderStyle="Double" Font-Bold="True" Font-Size="Large" HorizontalAlign="Center" style="position: relative; top: 0px; left: 0px; width: 650px" display="table" AllowSorting="true">           
+        <asp:GridView ID="table3" runat="server" Visible="False" BorderColor="Black" BorderStyle="Double" Font-Bold="True" Font-Size="Large" HorizontalAlign="Center" style="position: relative; top: 0px; left: 0px; width: 650px" display="table">
             <FooterStyle BackColor="White" BorderColor="Red" />
-            <HeaderStyle BackColor="#F0F0F0" ForeColor="Black" Font-Underline="False" />
+            <HeaderStyle BackColor="#F0F0F0" />
             <PagerStyle BackColor="White" />
             <RowStyle BackColor="White" HorizontalAlign="Center" />
         </asp:GridView>
+        
         <br />
-        <asp:Label ID="Label16" runat="server" Text="There is a need in" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large"></asp:Label>
-        &nbsp;
-        <asp:Label ID="Label15" runat="server" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large"></asp:Label>
+        <br />
+        <asp:Label ID="Label16" runat="server" Text="It is necessary to make at least" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large"></asp:Label>
+        &nbsp;&nbsp;
+        <asp:Label ID="Label15" runat="server" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#993333"></asp:Label>
+        <br />
+        <br />
         <br />
         <asp:GridView ID="table4" runat="server" Visible="False" BorderColor="Black" BorderStyle="Double" Font-Bold="True" Font-Size="Large" HorizontalAlign="Center" style="position: relative; top: 0px; left: 1px; width: 650px" display="table">
             <FooterStyle BackColor="White" BorderColor="Red" />
@@ -150,17 +153,30 @@
             <RowStyle BackColor="White" HorizontalAlign="Center" />
         </asp:GridView>
         <br />
+        <br />
         <asp:Label ID="Label8" runat="server" Font-Bold="True" Font-Size="X-Large" Text="Achieved level measurement inaccuracy:" Visible="False"></asp:Label>
-        &nbsp;<br />
+        &nbsp;&nbsp;&nbsp;
+        &nbsp;<asp:Label ID="Label19" runat="server" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#993333"></asp:Label>
+        <br />
+        <br />
         <br />
         <asp:Label ID="Label9" runat="server" Font-Bold="True" Font-Size="X-Large" Text="Output per hour:" Visible="False"></asp:Label>
+        &nbsp;&nbsp;&nbsp;
+        <asp:Label ID="Label17" runat="server" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#993333"></asp:Label>
         <br />
-        <asp:Label ID="Label13" runat="server" Text="Insert efficiency (E):" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large"></asp:Label>
+        <br />
+        <br />
+        <asp:Label ID="Label13" runat="server" Text="Calculation of productivity percentage per hour  by a certain efficiency, please enter the percentage required efficiency:" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
+        &nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox4" runat="server" Visible="False"></asp:TextBox>
-        <asp:Button ID="Button11" runat="server" OnClick="Button11_Click" Text="OK" Visible="False" BorderWidth="1px" Font-Bold="True" Font-Size="Medium" ForeColor="#003366" />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="Button11" runat="server" OnClick="Button11_Click" Text="OK" Visible="False" MaintainScrollPositionOnPostback="true" BorderWidth="1px" Font-Bold="True" Font-Size="Medium" ForeColor="#003366" />
         <br />
         <br />
-        <asp:Label ID="Label11" runat="server" Font-Bold="True" Font-Size="X-Large" Text="Output per hour efficiency " Visible="False"></asp:Label>
+        <br />
+        <asp:Label ID="Label11" runat="server" Font-Bold="True" Font-Size="X-Large" Text="Output per hour efficiency:" Visible="False"></asp:Label>
+        &nbsp;&nbsp;&nbsp;
+        <asp:Label ID="Label18" runat="server" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#993333"></asp:Label>
         <br />
         <br />
     

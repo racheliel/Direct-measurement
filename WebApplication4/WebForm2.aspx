@@ -23,8 +23,9 @@
              margin-left: auto;
              margin-right: auto;
         }
-        .auto-style2 {
+        .auto-style3 {
             font-size: x-large;
+            color: #000099;
         }
         </style>
 </head>
@@ -37,18 +38,18 @@
         <br />
         <br />
     
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="I want to change all the line" BorderColor="#003366" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" style="font-size: medium" />
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="To change all the line click here" BorderColor="#003366" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" style="font-size: medium" />
         <br />
         <br />
         <br />
-        <span class="auto-style2">Choose the value</span>&nbsp;
+        <span class="auto-style3">Choose the value</span>&nbsp;
         <asp:DropDownList ID="type" runat="server" Font-Bold="True" style="font-size: medium">
         </asp:DropDownList>
-        &nbsp; <span class="auto-style2">and its location in the table</span>&nbsp; <asp:DropDownList ID="cyce" runat="server" Font-Bold="True" style="font-size: medium">
+        &nbsp; <span class="auto-style3">and its location in the table</span>&nbsp; <asp:DropDownList ID="cyce" runat="server" Font-Bold="True" style="font-size: medium">
         </asp:DropDownList>
         <br />
         <br />
-        <asp:Label ID="Label1" runat="server" Text="new value:" Font-Bold="True" Font-Size="Large" style="font-size: x-large"></asp:Label>
+        <asp:Label ID="Label1" runat="server" Text="new value:" Font-Bold="True" Font-Size="Large" style="font-size: x-large" ForeColor="#000099"></asp:Label>
         &nbsp;
         <asp:TextBox ID="newVal" runat="server"></asp:TextBox>
         <br />

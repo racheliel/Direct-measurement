@@ -24,6 +24,7 @@
         .auto-style1 {
             font-size: x-large;
             font-weight: bold;
+            color: #000099;
         }
         .auto-style2 {
             font-size: x-large;
@@ -38,12 +39,18 @@
         <br />
         <br />
         <br />
-        <span class="auto-style1">Insert one value at a time.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<asp:Label ID="Label1" runat="server" ForeColor="#336699" Font-Bold="True" Font-Size="Large"></asp:Label>
+        <span class="auto-style1">Insert one value at a time.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<asp:Label ID="Label1" runat="server" ForeColor="#336699" Font-Bold="True" Font-Size="Large" style="font-size: larger"></asp:Label>
+        <br />
+        <br />
+        <br />
+        <asp:Label ID="Label4" runat="server" Text=" The last three values are permanent  - rate of action, frequency, extras rest" Font-Bold="True" Font-Size="X-Large" ForeColor="#000099"></asp:Label>
+        <br />
         <br />
         <br />
         &nbsp;<asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Large" style="font-size: x-large"></asp:Label>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;
         <br />
 &nbsp;<asp:TextBox ID="val" runat="server" Width="52px"></asp:TextBox>
@@ -52,13 +59,20 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="ok" runat="server" OnClick="ok_Click" Text="OK" BorderColor="#003366" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" style="font-size: medium" />
         &nbsp;&nbsp;&nbsp;
-        <asp:Label ID="err" runat="server" Font-Bold="True" ForeColor="#A60000" style="font-size: large"></asp:Label>
+        <asp:Label ID="err" runat="server" Font-Bold="True" ForeColor="#A60000" style="font-size: x-large" Font-Size="X-Large"></asp:Label>
     
         <br />
     
         <br />
     
-        <span class="auto-style2"><strong>The values entered into the table: </strong></span>&nbsp;<asp:Label ID="error" runat="server" Font-Bold="True" ForeColor="#A60000" style="font-size: x-large"></asp:Label>
+        <br />
+    
+        <span class="auto-style2"><strong>The values entered into the table: </strong></span>&nbsp;<asp:Label ID="error" runat="server" Font-Bold="True" ForeColor="#993333" style="font-size: x-large"></asp:Label>
+        <br />
+        <br />
+        <asp:Label ID="Label5" runat="server" Font-Bold="True" Font-Size="Large" ForeColor="Gray" Text="You can not change the values you inserted on this page."></asp:Label>
+        <br />
+        <asp:Label ID="Label6" runat="server" Font-Bold="True" Font-Size="Large" ForeColor="Gray" Text="When you will be taken to the next page, you can change the values"></asp:Label>
         <br />
         <br />
     

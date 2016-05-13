@@ -21,7 +21,7 @@ namespace WebApplication4
         protected void Page_Load(object sender, EventArgs e)
         {
           flag = (int)(Session["flag"]);
-
+          error.Text = "";
           colarry = new LinkedList<valInRow>();
           cycTe = (string)(Session["cyc"]);
           cycel = Convert.ToInt32(cycTe);
@@ -37,27 +37,27 @@ namespace WebApplication4
 
                     if (str.Count == cycel)
                     {
-                        Label2.Text = "insert %R";
+                        Label2.Text = "insert rate of action (%)";
                     }
                     if (str.Count == cycel + 1)
                     {
-                        Label2.Text = "insert F";
+                        Label2.Text = "insert frequency";
                         Label3.Visible = true;
                         TextBox1.Visible = true;
                     }
                     if (str.Count == cycel + 2)
                     {
-                        Label2.Text = "insert %(a+b)";
+                        Label2.Text = "insert extras rest (%)";
                     }
                     if (str.Count == cycel + 3)
                     {
                         
-                        Label2.Text = "you finished to insert  the number of elements by the number of cycles";
+                        Label2.Text = "You finished to insert the required values";
                         val.Visible = false;
                         ok.Visible = false;
                     }
                 }
-                Label1.Text = "*Left more  " + ((cycel + 3) - str.Count()) + " values to Insert ";
+                Label1.Text = "*"+ ((cycel + 3) - str.Count()) + " more left values to Insert";
          
             }
             row = (int)(Session["row"]);
@@ -65,15 +65,96 @@ namespace WebApplication4
         }
 
 
+ /*       protected void ok_Click(object sender, EventArgs e)
+        {
+            
+            double t1 = 0, t2 = 0, count = 0;
+            LinkedList<char> s = new LinkedList<char>();
+            if (val.Text == "")
+            {
+                err.Text = "You can not insert null value";
+                Session.Add("cyc", cycTe);
+                Session.Add("colarry", colarry);
+                Session.Add("row", row);
+                Session.Add("str", str);
+                // Response.Redirect("~/WebForm5.aspx");
+            }
+            else
+            {
+                try
+                {
+                   double k = Convert.ToDouble(val.Text);
+                    error.Text = "";
+                    if (str.Count < cycel + 3)
+                    {
+                        string sv = val.Text;
+                        if (str.Count == cycel + 1)
+                        {
+                            try
+                            {
+                                t1 = Convert.ToDouble(sv);
+                                t2 = Convert.ToDouble(TextBox1.Text);
+                                count = (t1 / t2);
+                                sv = "" + Math.Round(count, 2);
+
+                            }
+                            catch
+                            {
+                                err.Text = "You can not insert wrong value";
+                            }
+ 
+                        }
+                               str.AddLast(sv);
+                               Session.Add("str", str);
+
+                    }
+                    else
+                    {
+                        error.Text = "";
+                        add();
+                    }
+
+                }
+                catch 
+                { 
+                    err.Text = "You can not insert wrong value";
+                    val.Text = "";
+                    Session.Add("str", str); 
+                }
+  
+            }
+
+
+        }
+        */
         protected void ok_Click(object sender, EventArgs e)
         {
-            double t1 = 0, t2 = 0 ,count=0;
-            LinkedList<char> s =new LinkedList<char>();
-            if(val.Text == "")
-                err.Text = "You can not insert null value";
-            else if (str.Count < cycel + 3)
+            try
             {
-                string sv = val.Text;
+                double temp = Convert.ToDouble(val.Text);
+
+                    addToStr(temp);
+            }
+            catch 
+            {
+                if (val.Text.Equals(""))
+                    err.Text = "You can not insert null value";
+                else
+                    err.Text = "You can not insert wrong value";
+                val.Text = "";
+            }
+ 
+
+        }
+
+        public void addToStr(double k)
+        {
+            double t1 = 0, t2 = 0, count = 0;
+            LinkedList<char> s = new LinkedList<char>();
+           
+            if (str.Count < cycel + 3)
+            {
+                string sv = ""+k;
                 if (str.Count == cycel + 1)
                 {
                     try
@@ -81,7 +162,7 @@ namespace WebApplication4
                         t1 = Convert.ToDouble(sv);
                         t2 = Convert.ToDouble(TextBox1.Text);
                         count = (t1 / t2);
-                        sv = ""+Math.Round(count, 2);//"" + count;
+                        sv = "" + Math.Round(count, 2);//"" + count;
                     }
                     catch
                     {
@@ -99,7 +180,6 @@ namespace WebApplication4
             }
 
         }
-
         private void add()
         {
 
@@ -121,7 +201,6 @@ namespace WebApplication4
                 {
                     foreach (valInRow i in colarry)
                     {
-                        err.Text = "i " + i.Row + " ro " + row;
                         if (i.Row == row)
                         {
                             i.Val = str;

@@ -12,14 +12,16 @@ namespace WebApplication4
     public partial class WebForm1 : System.Web.UI.Page
     {
 
-        int cycel = 0 , counter = 0;
+        int cycel = 0 ;
         int rowClick = -1,row=0;
         double number_of_cycles_required = 0;
         double sumZ = 0, K=0,sumRW=0;
-        valInRow vr_cycles_required;
+
         LinkedList<valInRow> colarry;
         LinkedList<valInRow> colarry3;
-        LinkedList<valInRow> colarry4; 
+        LinkedList<valInRow> colarry4;
+        double[] tempstr;
+        int[] tempStr2;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (sumZ == 0 && Label12.Text!="")
@@ -48,7 +50,6 @@ namespace WebApplication4
 
                 rowClick = (int)(Session["row"]);
                 Button2.Visible = true;
-                Button6.Visible = true;
                 Button5.Visible = true;
                 if (cycel != 0 )
                 {
@@ -151,21 +152,28 @@ namespace WebApplication4
                 if (cycel==0)
                      cycel = cyc;
                 Button2.Visible = true;
-                Button6.Visible = true;
                 Button5.Visible = true;
-                drowTable(cyc);
+                LinkedList<String> str = new LinkedList<String>();
+                rowClick++;
+                Session.Add("cyc", cycBox.Text);
+                Session.Add("row", rowClick);
+                Session.Add("colarry", colarry);
+                Session.Add("str", str);
+                Session.Add("flag", 0);
+                Response.Redirect("~/WebForm5.aspx");
+               // drowTable(cyc);
             }
             catch
             {
                 if ( cycBox.Text.Equals(""))
                 {
-                    error.Text = "Please fill in all tabs";
+                    error.Text = "Please fill the field";
                 }
                 else
                 {
-                    error.Text = "Please chack if all fields are correct";
+                    error.Text = "Please check if the field value are correct";
                 }
-            }
+             }
         }
 
         protected void Button2_Click(object sender, EventArgs e)
@@ -187,7 +195,7 @@ namespace WebApplication4
             int cyc = cycel;
             DataTable dt = new DataTable();
             int count = 1;
-
+            sumZ = 0;
             dt.Columns.Add("Element", typeof(Int16));
             dt.Columns.Add("Rate (%)", typeof(string));
             dt.Columns.Add("Frequency", typeof(string));
@@ -215,7 +223,6 @@ namespace WebApplication4
                 DataRow row1 = dt.NewRow();
                 row1["Element"] = i.Row + 1;
                 count = 1;
-               // temp1 = 0; temp2 = 0; temp3 = 0; temp4 = 0; temp5 = 0; temp6 = 0; temp7 = 0; temp8 = 0;
                 temp = i.getValSize(i.Val) - 3;
                 temp8 = avg(i.Val);               
                 ni = temp;
@@ -276,8 +283,8 @@ namespace WebApplication4
         private void calTable3(LinkedList<valInRow> colarry2) //Display a 3 table
         {
             int cyc = cycel;
-            int count = 1;
-            Boolean flag = false;
+            int count = 1,k=0;
+
             double sumWi = 0, X = 0, Ci = 0;
             double ni = 0, Ni = 0, NiF = 0;
             //The "temp" used for intermediate calculations
@@ -287,7 +294,8 @@ namespace WebApplication4
             int temp = 0,c2=0;
             LinkedList<String> str;
             valInRow vr; c2 = 1;
-
+            tempstr = new double[colarry2.Count+1];
+            tempStr2 = new int[colarry2.Count + 1];
             foreach (valInRow i in colarry2)
             {
                 str = new LinkedList<String>();
@@ -310,15 +318,12 @@ namespace WebApplication4
                         temp1 = (double)Math.Sqrt(temp3);
                         Ci = (temp1);
                         Ni = (double)Math.Pow((K * Ci) / (R * X), 2);
-
                     }
 
                     if (count == temp + 2)
                     {
                         temp6 = Convert.ToDouble(j);
-                        NiF = Ni * (1 / temp6);
-                        //NiF = Math.Ceiling(Ni * (1 / temp6)); //Rounds a number up\\Ceiling
-                        //NiF = (int)temp10;
+                        NiF = (int)Math.Ceiling(Ni*(1/temp6)); //Rounds a number up
                     }
 
                     if (count == temp + 3)
@@ -331,27 +336,18 @@ namespace WebApplication4
                         zi =  (temp9 / sumZ);
                         sumWi += zi ;
                        
-                       if (sumWi == number_of_cycles_required)
-                        {
-                            flag = true;
-                            row = Convert.ToInt32(NiF);
-                        }
-                        if (flag == false)
-                        {
-                            if (sumWi > number_of_cycles_required)
-                            {
-                                flag = true;
-                                row = Convert.ToInt32(NiF);
-                            }
-                        }
                         str.AddLast("" + Math.Round(temp9, 2)) ;
                         str.AddLast("" +Convert.ToInt32(Ni)) ;
                         str.AddLast("" + Convert.ToInt32(NiF));
                         str.AddLast("" + Math.Round(zi, 2));
-                        str.AddLast("" + Math.Round(sumWi, 2));
+                        tempStr2[k] = Convert.ToInt32(NiF);
+                        tempstr[k] = Math.Round(sumWi, 2);
+
+                        str.AddLast("-");
                         vr = new valInRow(c2,str);
                         colarry3.AddLast(vr);
                         c2++;
+                        k++;
                     }
                     else
                     {
@@ -376,8 +372,8 @@ namespace WebApplication4
             dt.Columns.Add("Required cycles", typeof(double)); //n^*(1/f)
             dt.Columns.Add("Weight", typeof(string));
             dt.Columns.Add("Cumulative weight", typeof(string)); //
-
-
+            Array.Sort(tempstr);
+            int k = 1;
             foreach (valInRow i in colarry3)
             {
                 DataRow row1 = dt.NewRow();
@@ -406,30 +402,49 @@ namespace WebApplication4
                     {
                         row1["Cumulative weight"] = s;
                     }
-                    
                   count++;
                 }
-    
-              
-                
                 dt.Rows.Add(row1);
             }
 
-            dt.DefaultView.Sort = "Required cycles ASC";//desc
+            dt.DefaultView.Sort = "Required cycles ASC";
+            Array.Sort(tempstr);
+            Array.Sort(tempStr2);
+            k = 0;
             dt = dt.DefaultView.ToTable();
-
+            Boolean flag = false;
+            foreach(double i in tempstr)
+            {
+                dt.Rows[k][5] = "" + i;
+                if (i!=0)
+                  k++;
+                if (i == number_of_cycles_required)
+                {
+                    flag = true;
+                    row = Convert.ToInt32(tempStr2[k]);
+                }
+                if (flag == false)
+                {
+                    if (i > number_of_cycles_required)
+                    {
+                        flag = true;
+                        row = Convert.ToInt32(tempStr2[k]);
+                    }
+                }
+            }
+            dt = dt.DefaultView.ToTable();
             table3.Visible = true;
             table3.DataSource = dt;
+           
             table3.DataBind();
             
         }
-
 
         private void calTable4(LinkedList<valInRow> colarry2) //Display a 3 table
         {
             int cyc = cycel;
             int count = 1;
-
+            sumRW = 0;
             double sumWi = 0, X = 0, Ci = 0;
             double ni = 0, Ni = 0, NiF = 0;
             //The "temp" used for intermediate calculations
@@ -502,9 +517,7 @@ namespace WebApplication4
                     }
                     count++;
                 }
-
             }
-
         }
 
         private void drowTable4() //Display a 3 table
@@ -593,15 +606,10 @@ namespace WebApplication4
 
         protected void Button3_Click(object sender, EventArgs e)
         {
-            Button2.Visible = false;         
+            Button2.Visible = true;         
             TextBox1.Visible = true;
             Button4.Visible = true;
-        //    Button3.Visible = false;
             Label3.Visible = true;
-            Label7.Visible = true;
-            TextBox2.Visible = true;
-        //    Label10.Visible = true;
-        //    TextBox3.Visible = true;
             Session.Add("cyc", cycBox.Text);
             Session.Add("colarry", colarry);
         }
@@ -611,14 +619,18 @@ namespace WebApplication4
             try 
             { 
                 Convert.ToDouble(TextBox1.Text); 
-                Convert.ToDouble(TextBox2.Text);
-              // double qe = Convert.ToDouble(TextBox3.Text);
+     
                 error.Text = "";
                 Label5.Visible = true;
                 Label2.Visible = true;
                 Label12.Visible = true;
-                LinkedList<valInRow> colarry2 = new LinkedList<valInRow>();
-                Button7.Visible = true;
+               
+                Button10.Visible = true;
+                TextBox3.Visible = true;
+                Label10.Visible = true;
+                Label7.Visible = true;
+                TextBox2.Visible = true;
+                LinkedList<valInRow> colarry2 = new LinkedList<valInRow>();               
                 RemovalExceptions(colarry2);
                 drowTable2(colarry2);
                Label12.Text = "" + sumZ;
@@ -736,7 +748,6 @@ namespace WebApplication4
             Button4.Visible = false;
             Button11.Visible = false;
             Button10.Visible = false;
-            Button7.Visible = false;
             Label3.Visible = false;
             table2.Visible = false;
             Label5.Visible = false;
@@ -747,9 +758,11 @@ namespace WebApplication4
             Label16.Visible = false;
             Label8.Visible = false;
             Label9.Visible = false;
+            Label19.Visible = false;
             Label13.Visible = false;
             Label11.Visible = false;
-
+            Label17.Visible = false;
+            Label18.Visible = false;
             Button1.Visible = true;
             Label7.Visible = false;
             TextBox2.Visible = false;
@@ -903,18 +916,13 @@ namespace WebApplication4
                 }
             }
             drowTable(10);
-            Session.Add("cyc", cycBox.Text);
+            Session.Add("cyc", ""+10);
             Session.Add("row", 1);
             Session.Add("colarry", colarry);
            
         }
 
-        protected void Button7_Click(object sender, EventArgs e)
-        {
-            Button10.Visible = true;
-            TextBox3.Visible = true;
-            Label10.Visible = true;
-        }
+        
 
         protected void Button8_Click(object sender, EventArgs e)
         {
@@ -923,14 +931,17 @@ namespace WebApplication4
                 double qe = Convert.ToDouble(TextBox3.Text);
                 error.Text = "";
                 number_of_cycles_required = (qe/100);
-
+       
+                Convert.ToDouble(TextBox2.Text);
                 LinkedList<valInRow> colarry2 = new LinkedList<valInRow>();
                  Label8.Visible = true;
+                 Label19.Visible = true;
                   Label9.Visible = true;
                   Label13.Visible = true;
                   TextBox4.Visible = true;
                   Button11.Visible = true;
-
+                  Label17.Visible = true;
+                  
                   RemovalExceptions(colarry2);
                   calTable3(colarry2);
                 drowTable3();
@@ -939,9 +950,9 @@ namespace WebApplication4
                 Label16.Visible = true;
                 Label15.Text = " " + row + " cycles";
                 Label15.Visible = true;
-                  Label8.Text += "" + sumRW;
+                  Label19.Text += "" + sumRW;
                   double q = Math.Round((6000 / sumZ),2);
-                 Label9.Text += "" +q;
+                  Label17.Text = "" + q;
          
                 Session.Add("cyc", cycBox.Text);
                 Session.Add("colarry", colarry);
@@ -961,8 +972,9 @@ namespace WebApplication4
                 error.Text = "";
 
                 Label11.Visible = true;
+                Label18.Visible = true;
                 double q = Math.Round((6000 / sumZ), 2);
-               Label11.Text += " ( E = " + TextBox3.Text + " ) = " + (q * (qe / 100));
+               Label18.Text = ""+ (q * (qe / 100));
 
 
                 Session.Add("cyc", cycBox.Text);
