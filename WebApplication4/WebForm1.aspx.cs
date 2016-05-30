@@ -23,14 +23,15 @@ namespace WebApplication4
         double[] tempstr;
         int[] tempStr2;
         protected void Page_Load(object sender, EventArgs e)
-        {
+        { 
+  
             if (sumZ == 0 && Label12.Text!="")
             {
                 try
                 {
                     sumZ = Convert.ToDouble(Label12.Text);
                 }
-                catch { error.Text = "Errror!"; }
+                catch { error.Text = "Error"; }
             }
             colarry3 = new LinkedList<valInRow>();
             colarry4 = new LinkedList<valInRow>();
@@ -40,7 +41,6 @@ namespace WebApplication4
             if ((LinkedList<valInRow>)(Session["colarry"]) == null)
             {
                 colarry = new LinkedList<valInRow>();
-
             }
             else
             {
@@ -51,8 +51,7 @@ namespace WebApplication4
                 rowClick = (int)(Session["row"]);
                 Button2.Visible = true;
                 Button5.Visible = true;
-                if (cycel != 0 )
-                {
+                if(cycel != 0){
                     cycBox.Text = "" + cycel;
                     Button1.Visible = false;
                     if (rowClick != -1)
@@ -65,6 +64,17 @@ namespace WebApplication4
             }
 
         }
+        protected void RadioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            Timer1.Enabled = true;
+            Timer1.Interval = 1000;
+        }
+
+        protected void Timer1_Tick(object sender, EventArgs e)
+        {
+            TimeOfPrice.Text = DateTime.Now.ToLongTimeString();
+        }
+
 
         public void drowTable(int cyc)
         {
@@ -82,8 +92,7 @@ namespace WebApplication4
 
                     dt.Columns.Add("Rate (%)", typeof(string));
                     dt.Columns.Add("Frequency", typeof(string));
-                    dt.Columns.Add("Extras rest (%)", typeof(string));
-                    
+                    dt.Columns.Add("PFD allowance (%)", typeof(string));
                     
                     if (colarry.Count != 0)
                     {
@@ -106,7 +115,7 @@ namespace WebApplication4
                                 }
                                 if(count == cyc + 3)
                                 {
-                                    row1["Extras rest (%)"] = j ;
+                                    row1["PFD allowance (%)"] = j ;
                                     break;
                                 }
 
@@ -116,12 +125,10 @@ namespace WebApplication4
                             }
                             dt.Rows.Add(row1);
                         }
-
                     }
                     else {
                         error.Text = "Please add elements";
                     }
-
                     table.DataSource = dt;                  
                     table.DataBind();
                 }
@@ -142,38 +149,66 @@ namespace WebApplication4
                 Session.Add("colarry", colarry);
                 Response.Redirect("~/WebForm2.aspx");
             }
+
+            if (e.CommandName.CompareTo("delete") == 0)
+            {
+                LinkedList<valInRow> nawColarry = new LinkedList<valInRow>();
+                valInRow temp = null;
+                int rowd = int.Parse(e.CommandArgument.ToString());
+                foreach (valInRow vr in colarry)
+                {
+                    if (vr.Row != rowd)
+                    {
+                        temp = new valInRow(vr.Row, vr.Val);
+                        nawColarry.AddLast(temp);
+                    }
+                }
+                Session.Add("cyc", cycBox.Text);
+                Session.Add("colarry", nawColarry);
+                Response.Redirect("~/WebForm1.aspx");
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int  cyc = Convert.ToInt32(cycBox.Text);
-                if (cycel==0)
-                     cycel = cyc;
-                Button2.Visible = true;
-                Button5.Visible = true;
-                LinkedList<String> str = new LinkedList<String>();
-                rowClick++;
-                Session.Add("cyc", cycBox.Text);
-                Session.Add("row", rowClick);
-                Session.Add("colarry", colarry);
-                Session.Add("str", str);
-                Session.Add("flag", 0);
-                Response.Redirect("~/WebForm5.aspx");
-               // drowTable(cyc);
+            if (cycBox.Text.Contains('-')) //Check if the number is negative value
+                error.Text = "You can not insert a negative value";
+            else if (cycBox.Text.Contains('.')) //Check if the number is decimal
+                error.Text = "You can not insert a decimal number";
+            else if (cycBox.Text.Equals("0"))
+                error.Text = "You can not insert a zero";
+            else {
+                error.Text = ""; //delet error
+                try
+                {
+                    int cyc = Convert.ToInt32(cycBox.Text);
+                    /*if (cycel == 0)
+                        cycel = cyc;*/
+                    Button2.Visible = true;
+                    Button5.Visible = true;
+                    LinkedList<String> str = new LinkedList<String>();
+                    rowClick++;
+                    Session.Add("cyc", cycBox.Text);
+                    Session.Add("row", rowClick);
+                    Session.Add("colarry", colarry);
+                    Session.Add("str", str);
+                    Session.Add("flag", 0);
+                    Response.Redirect("~/WebForm5.aspx");
+                    // drowTable(cyc);
+                }
+                catch
+                {
+                    if (cycBox.Text.Equals(""))
+                    {
+                        error.Text = "Please fill the field";
+                    }
+
+                    else
+                    {
+                        error.Text = "Please check if the field value are correct";
+                    }
+                }
             }
-            catch
-            {
-                if ( cycBox.Text.Equals(""))
-                {
-                    error.Text = "Please fill the field";
-                }
-                else
-                {
-                    error.Text = "Please check if the field value are correct";
-                }
-             }
         }
 
         protected void Button2_Click(object sender, EventArgs e)
@@ -188,8 +223,6 @@ namespace WebApplication4
             Response.Redirect("~/WebForm5.aspx");
         }
 
-
-
         private void drowTable2( LinkedList<valInRow> colarry2) //Display a second table
         {
             int cyc = cycel;
@@ -199,7 +232,7 @@ namespace WebApplication4
             dt.Columns.Add("Element", typeof(Int16));
             dt.Columns.Add("Rate (%)", typeof(string));
             dt.Columns.Add("Frequency", typeof(string));
-            dt.Columns.Add("Extras rest (%)", typeof(string));
+            dt.Columns.Add("PFD allowance (%)", typeof(string));
             dt.Columns.Add("Average", typeof(string));
             dt.Columns.Add("Standard deviation", typeof(string)); //σ
             dt.Columns.Add("Upper control limit", typeof(string));
@@ -260,7 +293,7 @@ namespace WebApplication4
 
                     if (count == temp + 3)
                     {
-                        row1["Extras rest (%)"] = j;
+                        row1["PFD allowance (%)"] = j;
                         temp7 = (Convert.ToDouble(j)/100) + 1;
                         zi = temp7 * temp5;
                         sumZ += Math.Round(zi, 2);
@@ -296,6 +329,7 @@ namespace WebApplication4
             valInRow vr; c2 = 1;
             tempstr = new double[colarry2.Count+1];
             tempStr2 = new int[colarry2.Count + 1];
+             
             foreach (valInRow i in colarry2)
             {
                 str = new LinkedList<String>();
@@ -311,7 +345,7 @@ namespace WebApplication4
                     if (count == temp + 1)
                     {
                         X = aveg;
-                        R = Convert.ToDouble(TextBox2.Text);// / 100;
+                        R = Convert.ToDouble(TextBox2.Text);
                         ri = Convert.ToDouble(j) / 100;
                         temp2 = ni;
                         temp3 = si / temp2;
@@ -326,10 +360,10 @@ namespace WebApplication4
                         NiF = (int)Math.Ceiling(Ni*(1/temp6)); //Rounds a number up
                     }
 
-                    if (count == temp + 3)
+                    if(count == temp + 3)
                     {
                         ti = aveg * ri;
-                        temp4 = zi;                        
+                        temp4 = zi;                   
                         temp5 = ti * temp6;
                         temp7 = (Convert.ToDouble(j) / 100) + 1;
                         temp9 = (temp7 * temp5);
@@ -337,7 +371,7 @@ namespace WebApplication4
                         sumWi += zi ;
                        
                         str.AddLast("" + Math.Round(temp9, 2)) ;
-                        str.AddLast("" +Convert.ToInt32(Ni)) ;
+                        str.AddLast("" + Convert.ToInt32(Ni)) ;
                         str.AddLast("" + Convert.ToInt32(NiF));
                         str.AddLast("" + Math.Round(zi, 2));
                         tempStr2[k] = Convert.ToInt32(NiF);
@@ -349,15 +383,14 @@ namespace WebApplication4
                         c2++;
                         k++;
                     }
+
                     else
                     {
                         si += (double)Math.Pow(sii(aveg, j), 2);
                     }
                     count++;
                 }
-             
-            }
-
+            } 
         }
 
         private void drowTable3() //Display a 3 table
@@ -369,10 +402,13 @@ namespace WebApplication4
             dt.Columns.Add("Element", typeof(Int16));
             dt.Columns.Add("Standard time", typeof(string));
             dt.Columns.Add("Required measurements", typeof(string));
-            dt.Columns.Add("Required cycles", typeof(double)); //n^*(1/f)
+            dt.Columns.Add("Required cycles", typeof(double)); 
             dt.Columns.Add("Weight", typeof(string));
-            dt.Columns.Add("Cumulative weight", typeof(string)); //
+            dt.Columns.Add("Cumulative weight", typeof(string));
+
+
             Array.Sort(tempstr);
+       
             int k = 1;
             foreach (valInRow i in colarry3)
             {
@@ -397,12 +433,14 @@ namespace WebApplication4
                     if (count == 4)
                     {
                         row1["Weight"] = s;
+
                     }
                     if (count == 5)
                     {
+
                         row1["Cumulative weight"] = s;
                     }
-                  count++;
+                    count++;
                 }
                 dt.Rows.Add(row1);
             }
@@ -413,11 +451,18 @@ namespace WebApplication4
             k = 0;
             dt = dt.DefaultView.ToTable();
             Boolean flag = false;
+            double sum = 0;
             foreach(double i in tempstr)
             {
-                dt.Rows[k][5] = "" + i;
-                if (i!=0)
-                  k++;
+
+               if (i != 0)
+               {
+
+                   sum += Convert.ToDouble(dt.Rows[k][4]);
+                   dt.Rows[k][5] = "" + sum;
+                   k++;
+
+               }
                 if (i == number_of_cycles_required)
                 {
                     flag = true;
@@ -437,7 +482,6 @@ namespace WebApplication4
             table3.DataSource = dt;
            
             table3.DataBind();
-            
         }
 
         private void calTable4(LinkedList<valInRow> colarry2) //Display a 3 table
@@ -470,7 +514,7 @@ namespace WebApplication4
                     if (count == temp + 1)
                     {
                         X = Math.Round(aveg, 2);
-                        R = Convert.ToDouble(TextBox2.Text);// / 100;
+                        R = Convert.ToDouble(TextBox2.Text);
                         ri = Convert.ToDouble(j) / 100;
                         temp2 = ni;
                         temp3 = si / temp2;
@@ -479,12 +523,10 @@ namespace WebApplication4
                         Ni = Math.Round((double)Math.Pow((K * Ci) / (R * X), 2), 2);
 
                     }
-
                     if (count == temp + 2)
                     {
                         temp6 = Convert.ToDouble(j);
                         NiF = Math.Round(Ni * (1 / temp6), 2);
-
                     }
 
                     if (count == temp + 3)
@@ -504,7 +546,7 @@ namespace WebApplication4
                         str.AddLast("" + X);
                         str.AddLast("" + Ci);
                         str.AddLast("" + ni);
-                        str.AddLast("" + (zi * 100 )+ "%");
+                        str.AddLast("" + (zi * 100 ) + "%");
                         str.AddLast("" + Ri);
                         str.AddLast("" + sumWi);
                         vr = new valInRow(c2, str);
@@ -568,9 +610,6 @@ namespace WebApplication4
                     }
                     count++;
                 }
-
-
-
                 dt.Rows.Add(row1);
             }
 
@@ -578,7 +617,6 @@ namespace WebApplication4
             table4.DataSource = dt;
             table4.DataBind();
         }
-
 
         private double sii(double avg, string j) //Calculating the standard deviation interim
         {
@@ -616,30 +654,34 @@ namespace WebApplication4
 
         protected void Button4_Click(object sender, EventArgs e)
         {
-            try 
-            { 
-                Convert.ToDouble(TextBox1.Text); 
-     
-                error.Text = "";
-                Label5.Visible = true;
-                Label2.Visible = true;
-                Label12.Visible = true;
-               
-                Button10.Visible = true;
-                TextBox3.Visible = true;
-                Label10.Visible = true;
-                Label7.Visible = true;
-                TextBox2.Visible = true;
-                LinkedList<valInRow> colarry2 = new LinkedList<valInRow>();               
-                RemovalExceptions(colarry2);
-                drowTable2(colarry2);
-               Label12.Text = "" + sumZ;
-               Session.Add("cyc", cycBox.Text);
-               Session.Add("colarry", colarry);
+            if (TextBox1.Text.Contains('-')) //Check if the number is negative
+                error0.Text = "You can not insert a negative value";
+            else{
+                error0.Text = ""; //delet error
+                try
+                {
+                    Convert.ToDouble(TextBox1.Text);
 
+                    error.Text = "";
+                    Label5.Visible = true;
+                    Label2.Visible = true;
+                    Label12.Visible = true;
+
+                    Button10.Visible = true;
+                    TextBox3.Visible = true;
+                    Label10.Visible = true;
+                    Label7.Visible = true;
+                    TextBox2.Visible = true;
+                    LinkedList<valInRow> colarry2 = new LinkedList<valInRow>();
+                    RemovalExceptions(colarry2);
+                    drowTable2(colarry2);
+                    Label12.Text = "" + sumZ;
+                    Session.Add("cyc", cycBox.Text);
+                    Session.Add("colarry", colarry);
+
+                }
+                catch { error0.Text = "Error in the text"; }
             }
-            catch { error.Text = "Error in the text!"; }
-
         }
 
         private double getUCLi(double si,double aveg) //Calculating upper control limit
@@ -772,220 +814,73 @@ namespace WebApplication4
             Session.Add("row", -1);
         }
 
-        protected void Button6_Click(object sender, EventArgs e)
-        {
-            colarry = new LinkedList<valInRow>();
-            valInRow vr;
-            int c = 0;
-            LinkedList<String> str;
-            for (int i = 0; i < 7; i++)
-            {
-                str = new LinkedList<String>();
-                if (c == 0)
-                {
-                    str.AddLast("" + 5);
-                    str.AddLast("" + 6);
-                    str.AddLast("" + 5);
-                    str.AddLast("" + 7);
-                    str.AddLast("" + 5);
-                    str.AddLast("" + 5);
-                    str.AddLast("" + 6);
-                    str.AddLast("" + 5);
-                    str.AddLast("" + 7);
-                    str.AddLast("" + 6);
-                    str.AddLast("" + 110);
-                    str.AddLast("" + 9);
-                    str.AddLast("" + 15);
-                    vr = new valInRow(c, str);
-                    colarry.AddLast(vr);
-                    c++;
-                }
-                else if (c == 1)
-                {
-                    str.AddLast("" + 3);
-                    str.AddLast("" + 5);
-                    str.AddLast("" + 3);
-                    str.AddLast("" + 4);
-                    str.AddLast("" + 3);
-                    str.AddLast("" + 4);
-                    str.AddLast("" + 3);
-                    str.AddLast("" + 4);
-                    str.AddLast("" + 3);
-                    str.AddLast("" + 4);
-                    str.AddLast("" + 100);
-                    str.AddLast("" + 9);
-                    str.AddLast("" + 12);
-                    vr = new valInRow(c, str);
-                    colarry.AddLast(vr);
-                    c++;
-                }
-                else if (c == 2)
-                {
-                    str.AddLast("" + 8);
-                    str.AddLast("" + 5);
-                    str.AddLast("" + 7);
-                    str.AddLast("" + 6);
-                    str.AddLast("" + 5);
-                    str.AddLast("" + 6);
-                    str.AddLast("" + 5);
-                    str.AddLast("" + 7);
-                    str.AddLast("" + 6);
-                    str.AddLast("" + 5);
-                    str.AddLast("" + 90);
-                    str.AddLast("" + 3);
-                    str.AddLast("" + 15);
-                    vr = new valInRow(c, str);
-                    colarry.AddLast(vr);
-                    c++;
-                }
-                else if (c == 3)
-                {
-                    str.AddLast("" + 10);
-                    str.AddLast("" + 10);
-                    str.AddLast("" + 9);
-                    str.AddLast("" + 9);
-                    str.AddLast("" + 8);
-                    str.AddLast("" + 10);
-                    str.AddLast("" + 11);
-                    str.AddLast("" + 12);
-                    str.AddLast("" + 9);
-                    str.AddLast("" + 10);
-                    str.AddLast("" + 110);
-                    str.AddLast("" + 1);
-                    str.AddLast("" + 17);
-                    vr = new valInRow(c, str);
-                    colarry.AddLast(vr);
-                    c++;
-                }
-                else if (c == 4)
-                {
-                    str.AddLast("" + 8);
-                    str.AddLast("" + 8);
-                    str.AddLast("" + 9);
-                    str.AddLast("" + 9);
-                    str.AddLast("" + 7);
-                    str.AddLast("" + 8);
-                    str.AddLast("" + 9);
-                    str.AddLast("" + 9);
-                    str.AddLast("" + 7);
-                    str.AddLast("" + 8);
-                    str.AddLast("" + 90);
-                    str.AddLast("" + 1);
-                    str.AddLast("" + 20);
-                    vr = new valInRow(c, str);
-                    colarry.AddLast(vr);
-                    c++;
-                }
-                else if (c == 5)
-                {
-                    str.AddLast("" + 25);
-                    str.AddLast("" + 22);
-                    str.AddLast("" + 23);
-                    str.AddLast("" + 28);
-                    str.AddLast("" + 27);
-                    str.AddLast("" + 22);
-                    str.AddLast("" + 25);
-                    str.AddLast("" + 31);
-                    str.AddLast("" + 27);
-                    str.AddLast("" + 25);
-                    str.AddLast("" + 110);
-                    str.AddLast("" + 0.1);
-                    str.AddLast("" + 20);
-                    vr = new valInRow(c, str);
-                    colarry.AddLast(vr);
-                    c++;
-                }
-                else if (c == 6)
-                {
-                    str.AddLast("" + 20);
-                    str.AddLast("" + 21);
-                    str.AddLast("" + 20);
-                    str.AddLast("" + 17);
-                    str.AddLast("" + 18);
-                    str.AddLast("" + 20);
-                    str.AddLast("" + 21);
-                    str.AddLast("" + 19);
-                    str.AddLast("" + 18);
-                    str.AddLast("" + 17);
-                    str.AddLast("" + 100);
-                    str.AddLast("" + 0.1);
-                    str.AddLast("" + 17);
-                    vr = new valInRow(c, str);
-                    colarry.AddLast(vr);
-                    c++;
-                }
-            }
-            drowTable(10);
-            Session.Add("cyc", ""+10);
-            Session.Add("row", 1);
-            Session.Add("colarry", colarry);
-           
-        }
-
-        
 
         protected void Button8_Click(object sender, EventArgs e)
         {
-            try
-            {
-                double qe = Convert.ToDouble(TextBox3.Text);
-                error.Text = "";
-                number_of_cycles_required = (qe/100);
-       
-                Convert.ToDouble(TextBox2.Text);
-                LinkedList<valInRow> colarry2 = new LinkedList<valInRow>();
-                 Label8.Visible = true;
-                 Label19.Visible = true;
-                  Label9.Visible = true;
-                  Label13.Visible = true;
-                  TextBox4.Visible = true;
-                  Button11.Visible = true;
-                  Label17.Visible = true;
-                  
-                  RemovalExceptions(colarry2);
-                  calTable3(colarry2);
-                drowTable3();
-                calTable4(colarry2);
-                drowTable4();
-                Label16.Visible = true;
-                Label15.Text = " " + row + " cycles";
-                Label15.Visible = true;
-                  Label19.Text += "" + sumRW;
-                  double q = Math.Round((6000 / sumZ),2);
-                  Label17.Text = "" + q;
-         
-                Session.Add("cyc", cycBox.Text);
-                Session.Add("colarry", colarry);
+            if (TextBox2.Text.Contains('-') || TextBox3.Text.Contains('-')) //Check if the number is negative
+                error1.Text = "You can not insert a negative value";
+            else {
+                error1.Text = ""; //delet error
+                try
+                {
+                    double qe = Convert.ToDouble(TextBox3.Text);
+                    error.Text = "";
+                    number_of_cycles_required = (qe / 100);
 
+                    Convert.ToDouble(TextBox2.Text);
+                    LinkedList<valInRow> colarry2 = new LinkedList<valInRow>();
+                    Label8.Visible = true;
+                    Label19.Visible = true;
+                    Label9.Visible = true;
+                    Label13.Visible = true;
+                    TextBox4.Visible = true;
+                    Button11.Visible = true;
+                    Label17.Visible = true;
+
+                    RemovalExceptions(colarry2);
+                    calTable3(colarry2);
+                    drowTable3();
+                    calTable4(colarry2);
+                    drowTable4();
+                    Label16.Visible = true;
+                    Label15.Text = " " + row + " cycles";
+                    Label15.Visible = true;
+                    Label19.Text = "" + sumRW;
+                    double q = Math.Round((6000 / sumZ), 2);
+                    Label17.Text = "" + q;
+
+                    Session.Add("cyc", cycBox.Text);
+                    Session.Add("colarry", colarry);
+
+                }
+                catch { error1.Text = "Error in the text!"; }
             }
-            catch { error.Text = "Error in the text!"; }
-
 
         }
 
         protected void Button11_Click(object sender, EventArgs e)
         {
-         
-            try
-            {
-                double qe = Convert.ToDouble(TextBox4.Text);
-                error.Text = "";
+            if (TextBox4.Text.Contains('-')) //Check if the number is negative
+                error2.Text = "You can not insert a negative value";
+            else {
+                error2.Text = ""; //delet error
+                try
+                {
+                    double qe = Convert.ToDouble(TextBox4.Text);
+                    error.Text = "";
 
-                Label11.Visible = true;
-                Label18.Visible = true;
-                double q = Math.Round((6000 / sumZ), 2);
-               Label18.Text = ""+ (q * (qe / 100));
+                    Label11.Visible = true;
+                    Label18.Visible = true;
+                    double q = Math.Round((6000 / sumZ), 2);
+                    Label18.Text = "" + (q * (qe / 100));
 
 
-                Session.Add("cyc", cycBox.Text);
-                Session.Add("colarry", colarry);
+                    Session.Add("cyc", cycBox.Text);
+                    Session.Add("colarry", colarry);
 
+                }
+                catch { error2.Text = "Error in the text"; }
             }
-            catch { error.Text = "Error in the text!"; }
-
-
         }
-
-
     }
 }

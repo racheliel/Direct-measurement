@@ -42,16 +42,15 @@
         <br />
         <br />
         <br />
-        <span class="auto-style3">Choose the value</span>&nbsp;
-        <asp:DropDownList ID="type" runat="server" Font-Bold="True" style="font-size: medium">
-        </asp:DropDownList>
-        &nbsp; <span class="auto-style3">and its location in the table</span>&nbsp; <asp:DropDownList ID="cyce" runat="server" Font-Bold="True" style="font-size: medium">
+        <span class="auto-style3">Choose the value</span>&nbsp;&nbsp; <span class="auto-style3">and its location in the table</span>&nbsp; <asp:DropDownList ID="cyce" runat="server" Font-Bold="True" style="font-size: medium">
         </asp:DropDownList>
         <br />
         <br />
         <asp:Label ID="Label1" runat="server" Text="new value:" Font-Bold="True" Font-Size="Large" style="font-size: x-large" ForeColor="#000099"></asp:Label>
         &nbsp;
         <asp:TextBox ID="newVal" runat="server"></asp:TextBox>
+        <br />
+        <asp:Label ID="Label2" runat="server"></asp:Label>
         <br />
         <br />
         <asp:Button ID="changeButt" runat="server" OnClick="changeButt_Click" Text="Change the value" BorderColor="#003366" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" style="font-size: medium" />
@@ -60,13 +59,10 @@
         <asp:Label ID="error" runat="server" Font-Bold="True" ForeColor="#A60000" style="font-size: x-large"></asp:Label>
         <br />
         <br />
-        <asp:Label ID="Label3" runat="server"></asp:Label>
         <br />
         <br />
-        <asp:Label ID="Label2" runat="server"></asp:Label>
         <br />
         <br />
-        <asp:Label ID="Label4" runat="server"></asp:Label>
         <br />
     
     </div>

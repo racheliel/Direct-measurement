@@ -47,7 +47,7 @@ namespace WebApplication4
                     }
                     if (str.Count == cycel + 2)
                     {
-                        Label2.Text = "insert extras rest (%)";
+                        Label2.Text = "insert PFD allowance (%)";
                     }
                     if (str.Count == cycel + 3)
                     {
@@ -57,91 +57,32 @@ namespace WebApplication4
                         ok.Visible = false;
                     }
                 }
-                Label1.Text = "*"+ ((cycel + 3) - str.Count()) + " more left values to Insert";
+                Label1.Text = "*"+ ((cycel + 3) - str.Count()) + " more values left to insert";
          
             }
             row = (int)(Session["row"]);
             colarry = (LinkedList<valInRow>)(Session["colarry"]);
         }
 
-
- /*       protected void ok_Click(object sender, EventArgs e)
-        {
-            
-            double t1 = 0, t2 = 0, count = 0;
-            LinkedList<char> s = new LinkedList<char>();
-            if (val.Text == "")
-            {
-                err.Text = "You can not insert null value";
-                Session.Add("cyc", cycTe);
-                Session.Add("colarry", colarry);
-                Session.Add("row", row);
-                Session.Add("str", str);
-                // Response.Redirect("~/WebForm5.aspx");
-            }
-            else
-            {
-                try
-                {
-                   double k = Convert.ToDouble(val.Text);
-                    error.Text = "";
-                    if (str.Count < cycel + 3)
-                    {
-                        string sv = val.Text;
-                        if (str.Count == cycel + 1)
-                        {
-                            try
-                            {
-                                t1 = Convert.ToDouble(sv);
-                                t2 = Convert.ToDouble(TextBox1.Text);
-                                count = (t1 / t2);
-                                sv = "" + Math.Round(count, 2);
-
-                            }
-                            catch
-                            {
-                                err.Text = "You can not insert wrong value";
-                            }
- 
-                        }
-                               str.AddLast(sv);
-                               Session.Add("str", str);
-
-                    }
-                    else
-                    {
-                        error.Text = "";
-                        add();
-                    }
-
-                }
-                catch 
-                { 
-                    err.Text = "You can not insert wrong value";
-                    val.Text = "";
-                    Session.Add("str", str); 
-                }
-  
-            }
-
-
-        }
-        */
         protected void ok_Click(object sender, EventArgs e)
         {
-            try
-            {
-                double temp = Convert.ToDouble(val.Text);
-
+            if (val.Text.Contains('-')) //Check if the number is negative
+                err.Text = "You can not insert a negative value";
+            else {
+                //val.Text = "";
+                try
+                {
+                    double temp = Convert.ToDouble(val.Text);
                     addToStr(temp);
-            }
-            catch 
-            {
-                if (val.Text.Equals(""))
-                    err.Text = "You can not insert null value";
-                else
-                    err.Text = "You can not insert wrong value";
-                val.Text = "";
+                }
+                catch
+                {
+                    if (val.Text.Equals(""))
+                        err.Text = "You can not insert null value";
+                    else
+                        err.Text = "You can not insert wrong value";
+                    val.Text = "";
+                }
             }
  
 
@@ -166,7 +107,10 @@ namespace WebApplication4
                     }
                     catch
                     {
-                        err.Text = "You can not insert wrong value";
+                        if (!val.Text.All(char.IsDigit))
+                            err.Text = "You can not insert a negative value";
+                        else
+                            err.Text = "You can not insert wrong value";
                     }
                 }
                 str.AddLast(sv);
@@ -209,7 +153,7 @@ namespace WebApplication4
                     }
                 }
                 if (flag == 0)
-                    colarry.AddLast(col);
+                colarry.AddLast(col);
                 Session.Add("cyc", cycTe);
                 Session.Add("colarry", colarry);
                 Session.Add("row", row);
@@ -219,7 +163,14 @@ namespace WebApplication4
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
-            add();
+            if (val.Text.Equals(""))
+            {
+                err.Text = "insert value";
+            }
+            else
+            {
+                add();
+            }
         }
 
         protected void Button2_Click(object sender, EventArgs e)

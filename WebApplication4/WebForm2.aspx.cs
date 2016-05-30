@@ -22,19 +22,20 @@ namespace WebApplication4
             cycel = Convert.ToInt32(cycText);
             row = (int)(Session["row"]);
             colarry = (LinkedList<valInRow>)(Session["colarry"]);
+
             foreach (valInRow i in colarry)
             {
                 if (i.Row == row)
                 {
                     str = i.Val;
+                    foreach(String j in i.Val)
+                    {
+                        Label2.Text += j + " ";
+                    }
 
                 }
             }
 
-            foreach (string j in str)
-            {
-                type.Items.Add(j);
-            }
  
             for (int i = 0; i < cycel + 3; i++)
             {
@@ -47,21 +48,31 @@ namespace WebApplication4
 
         protected void changeButt_Click(object sender, EventArgs e)
         {
-            if (newVal.Text.Equals(""))
-                error.Text = "err";
-            else
+            try 
             {
-                LinkedList<String> newStr = editData(row, str, type.Text, Convert.ToInt32(cyce.Text), newVal.Text);
-                Label2.Text += "r " + row + " str " + str.Count + " typ " + type.Text + " cyc " + Convert.ToInt32(cyce.Text) + " new " + newVal.Text;
-                foreach (string i in newStr)
-                {
+                double val = Convert.ToDouble(newVal.Text);
+                change(val);
+            }
+            catch
+            {
+                  if (newVal.Text.Equals(""))
+                      error.Text = "You can not insert null value";
+                  else
+                      error.Text = "You can not insert wrong value";
+            }
+            
 
-                    Label2.Text += " " + i;
-                }
+        }
+
+        public void change(double val)
+        {
+
+            string temp = "" + val;
+                LinkedList<String> newStr = editData(row, str, Convert.ToInt32(cyce.Text), temp);
 
                 valInRow newcol = new valInRow(row, newStr);
                 if (col.Val.Count == 0)
-                    error.Text = "kkkkkkkkkk";
+                    error.Text = "error";
                 else
                 {
                     LinkedList<valInRow> colArryNew = new LinkedList<valInRow>();
@@ -69,7 +80,7 @@ namespace WebApplication4
                     {
                         if (i.Row == row)
                         {
-                            error.Text = "kkkkk " + row;
+
                             colArryNew.AddLast(newcol);
 
                         }
@@ -85,17 +96,17 @@ namespace WebApplication4
 
                     Response.Redirect("~/WebForm1.aspx");
                 }
-            }
-        }
+            
 
-        public LinkedList<string> editData(int row, LinkedList<string> str, string val, int i, string newVal)
+        }
+        public LinkedList<string> editData(int row, LinkedList<string> str, int i, string newVal)
         {
 
             int count = 1;
             LinkedList<string> newStr = new LinkedList<string>();
             foreach (string j in str)
             {
-                if (val.Equals(j) && count == i)
+                if ( count == i)
                 {
                     newStr.AddLast(newVal);
                     count++;

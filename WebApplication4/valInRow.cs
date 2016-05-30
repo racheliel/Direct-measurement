@@ -34,19 +34,7 @@ namespace WebApplication4
             return v.Count;
         }
 
-        public LinkedList<string> removeFromVal(LinkedList<string> v,string s)
-        {
-            LinkedList<string> newVal = new LinkedList<string>();
-            foreach(string i in v)
-            {
-                if(!i.Equals(s))
-                {
-                    newVal.AddLast(i);
-                }
-                
-            }
-            return newVal;
-        }
+
 
      
 
