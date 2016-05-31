@@ -163,14 +163,7 @@ namespace WebApplication4
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
-            if (val.Text.Equals(""))
-            {
-                err.Text = "insert value";
-            }
-            else
-            {
-                add();
-            }
+            add();
         }
 
         protected void Button2_Click(object sender, EventArgs e)

@@ -31,7 +31,7 @@ namespace WebApplication4
                 {
                     sumZ = Convert.ToDouble(Label12.Text);
                 }
-                catch { error.Text = "Error"; }
+                catch { error.Text = "Errror"; }
             }
             colarry3 = new LinkedList<valInRow>();
             colarry4 = new LinkedList<valInRow>();
@@ -64,16 +64,9 @@ namespace WebApplication4
             }
 
         }
-        protected void RadioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            Timer1.Enabled = true;
-            Timer1.Interval = 1000;
-        }
 
-        protected void Timer1_Tick(object sender, EventArgs e)
-        {
-            TimeOfPrice.Text = DateTime.Now.ToLongTimeString();
-        }
+
+
 
 
         public void drowTable(int cyc)
@@ -121,8 +114,7 @@ namespace WebApplication4
 
                                 row1[count] = j;
                                 count++;
-                                
-                            }
+                        }
                             dt.Rows.Add(row1);
                         }
                     }
@@ -131,7 +123,7 @@ namespace WebApplication4
                     }
                     table.DataSource = dt;                  
                     table.DataBind();
-                }
+            }
                 catch { error.Text = "Error in table"; }
         }
 
@@ -148,6 +140,7 @@ namespace WebApplication4
                 Session.Add("str", str);
                 Session.Add("colarry", colarry);
                 Response.Redirect("~/WebForm2.aspx");
+                Server.Transfer("~/WebForm2.aspx");
             }
 
             if (e.CommandName.CompareTo("delete") == 0)
@@ -167,7 +160,7 @@ namespace WebApplication4
                 Session.Add("colarry", nawColarry);
                 Response.Redirect("~/WebForm1.aspx");
             }
-        }
+        }        
 
         protected void Button1_Click(object sender, EventArgs e)
         {
@@ -813,7 +806,6 @@ namespace WebApplication4
             Session.Add("colarry", colarry);
             Session.Add("row", -1);
         }
-
 
         protected void Button8_Click(object sender, EventArgs e)
         {

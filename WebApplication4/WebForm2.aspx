@@ -42,7 +42,7 @@
         <br />
         <br />
         <br />
-        <span class="auto-style3">Choose the value</span>&nbsp;&nbsp; <span class="auto-style3">and its location in the table</span>&nbsp; <asp:DropDownList ID="cyce" runat="server" Font-Bold="True" style="font-size: medium">
+        <span class="auto-style3">Choose the location of the value in the row</span>&nbsp; <asp:DropDownList ID="cyce" runat="server" Font-Bold="True" style="font-size: medium">
         </asp:DropDownList>
         <br />
         <br />
@@ -50,7 +50,10 @@
         &nbsp;
         <asp:TextBox ID="newVal" runat="server"></asp:TextBox>
         <br />
-        <asp:Label ID="Label2" runat="server"></asp:Label>
+        <br />
+        <br />
+        <asp:GridView ID="GridView1" runat="server" Height="50px" style="font-size: large; text-align: center" Width="419px">
+        </asp:GridView>
         <br />
         <br />
         <asp:Button ID="changeButt" runat="server" OnClick="changeButt_Click" Text="Change the value" BorderColor="#003366" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" style="font-size: medium" />
@@ -61,8 +64,7 @@
         <br />
         <br />
         <br />
-        <br />
-        <br />
+        
         <br />
     
     </div>

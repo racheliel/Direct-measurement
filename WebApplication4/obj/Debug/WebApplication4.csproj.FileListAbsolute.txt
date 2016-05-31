@@ -88,3 +88,9 @@ C:\Users\רחלי\documents\visual studio 2013\Projects\WebApplication471\WebApp
 C:\Users\רחלי\documents\visual studio 2013\Projects\WebApplication471\WebApplication4\obj\Debug\WebApplication4.csprojResolveAssemblyReference.cache
 C:\Users\רחלי\documents\visual studio 2013\Projects\WebApplication471\WebApplication4\obj\Debug\WebApplication4.dll
 C:\Users\רחלי\documents\visual studio 2013\Projects\WebApplication471\WebApplication4\obj\Debug\WebApplication4.pdb
+C:\Users\Shelly\Desktop\WebApplication471 (1)\WebApplication471\WebApplication4\bin\WebApplication4.dll.config
+C:\Users\Shelly\Desktop\WebApplication471 (1)\WebApplication471\WebApplication4\bin\WebApplication4.dll
+C:\Users\Shelly\Desktop\WebApplication471 (1)\WebApplication471\WebApplication4\bin\WebApplication4.pdb
+C:\Users\Shelly\Desktop\WebApplication471 (1)\WebApplication471\WebApplication4\obj\Debug\WebApplication4.csprojResolveAssemblyReference.cache
+C:\Users\Shelly\Desktop\WebApplication471 (1)\WebApplication471\WebApplication4\obj\Debug\WebApplication4.dll
+C:\Users\Shelly\Desktop\WebApplication471 (1)\WebApplication471\WebApplication4\obj\Debug\WebApplication4.pdb

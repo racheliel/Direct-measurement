@@ -53,21 +53,8 @@
         <br />
         <br />
         <br />
-        <asp:ScriptManager ID="ScriptManager1" runat="server" />
-        <asp:Timer ID="Timer1" OnTick="Timer1_Tick" runat="server" Interval="10000" />
+        <div>
 
-        <asp:UpdatePanel ID="StockPricePanel" runat="server" UpdateMode="Conditional">
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="Timer1" />
-        </Triggers>
-        <ContentTemplate>
-            run timer: <asp:Label id="TimeOfPrice" runat="server"></asp:Label>  
-        
-        </ContentTemplate>
-        </asp:UpdatePanel>
-       <div>
-
-        <asp:RadioButton ID="RadioButton1" AutoPostBack="true" GroupName="TimerFrequency" runat="server" Text="start" OnCheckedChanged="RadioButton1_CheckedChanged" /><br />     
        <br />
 
        </div>
@@ -81,13 +68,12 @@
         <asp:Button ID="Button5" runat="server" OnClick="Button5_Click" Text="Clear Data" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" BackColor="#F0F0F0" style="font-size: medium" Visible="False" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br />
-        <br />
         <asp:Label ID="error" runat="server" Font-Bold="True" ForeColor="#A60000" style="font-size: x-large"></asp:Label>
         <br />
         <br />
         <br />
         <br />
-        <asp:GridView ID="table" runat="server" OnRowCommand="GridView1_RowCommand" BackColor="White" BorderColor="Black" BorderStyle="Double" Font-Bold="True" Font-Size="Large" ForeColor="Black" HorizontalAlign="Justify" style="position: relative; top: 0px; left: 0px; width: 730px; height: 192px;" display="table">
+        <asp:GridView ID="table" runat="server" OnRowCommand="GridView1_RowCommand" BackColor="White" BorderColor="Black" BorderStyle="Double" Font-Bold="True" Font-Size="Large" ForeColor="Black" HorizontalAlign="Justify" style="position: relative; top: 0px; left: 0px; width: 730px; height: 76px;" display="table">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:ButtonField CommandName="edit" HeaderText="edit" Text="edit" />

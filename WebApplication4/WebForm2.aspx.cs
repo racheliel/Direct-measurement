@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -16,6 +17,7 @@ namespace WebApplication4
         LinkedList<String> str;
         valInRow col;
         string cycText;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             cycText = (string)(Session["cyc"]);
@@ -23,25 +25,67 @@ namespace WebApplication4
             row = (int)(Session["row"]);
             colarry = (LinkedList<valInRow>)(Session["colarry"]);
 
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Element", typeof(Int16));
+            int count = 1;
+            for (int i = 0; i < cycel; i++)
+            {
+                dt.Columns.Add(new DataColumn("" + count, typeof(string)));
+                count++;
+            }
+            dt.Columns.Add("Rate (%)", typeof(string));
+            dt.Columns.Add("Frequency", typeof(string));
+            dt.Columns.Add("PFD allowance (%)", typeof(string));
+
             foreach (valInRow i in colarry)
             {
                 if (i.Row == row)
                 {
                     str = i.Val;
-                    foreach(String j in i.Val)
-                    {
-                        Label2.Text += j + " ";
-                    }
-
                 }
             }
 
- 
+            if (colarry.Count != 0)
+            {
+                foreach (valInRow i in colarry)
+                {
+                    DataRow row1 = dt.NewRow();
+                    row1["Element"] = i.Row + 1;
+                    count = 1;
+                    if (i.Row == row)
+                    {
+
+                        foreach (string j in i.Val)
+                        {
+                            if (count == cycel + 1)
+                            {
+                                row1["Rate (%)"] = j;
+                            }
+                            if (count == cycel + 2)
+                            {
+                                row1["Frequency"] = j;
+                            }
+                            if (count == cycel + 3)
+                            {
+                                row1["PFD allowance (%)"] = j;
+                                break;
+                            }
+
+                            row1[count] = j;
+                            count++;
+
+                        }
+                        dt.Rows.Add(row1);
+                    }
+                }
+                GridView1.DataSource = dt;
+                GridView1.DataBind();
+            }
+
             for (int i = 0; i < cycel + 3; i++)
             {
                 cyce.Items.Add("" + (i + 1));
             }
-            
 
             col = new valInRow(row, str);
         }
@@ -133,5 +177,7 @@ namespace WebApplication4
             Session.Add("flag", 1);
             Response.Redirect("~/WebForm5.aspx");
         }
+
+
     }
 }
