@@ -40,11 +40,10 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" defaultbutton="Button4">
     <div style="font-family: David" title="Direct Measurement">
-    
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="MainTitle" runat="server" Font-Bold="True"  ForeColor="#003366" Text="Direct Measurement" style="text-align: center"></asp:Label>
         <asp:Label ID="Label4" runat="server" Text="Welcome! " Font-Bold="True" ForeColor="#003366"></asp:Label>
         <br />
@@ -60,13 +59,13 @@
        </div>
 
         <asp:Label ID="Label2" runat="server" Text="Please enter the number of cycles:" Font-Bold="True" Font-Size="Large" Font-Underline="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="cycBox" runat="server"></asp:TextBox>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="OK" BackColor="#F0F0F0" MaintainScrollPositionOnPostback="true" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" style="font-size: medium" />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button5" runat="server" OnClick="Button5_Click" Text="Clear Data" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" BackColor="#F0F0F0" style="font-size: medium" Visible="False" />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br />
         <asp:Label ID="error" runat="server" Font-Bold="True" ForeColor="#A60000" style="font-size: x-large"></asp:Label>
         <br />
@@ -97,7 +96,7 @@
         <br />
         <br />
         <br />
-        <asp:Label ID="Label3" runat="server" Text="To calculate standard time insert level of reliability, according to the value in the normal distribution :" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
+        <asp:Label ID="Label3" runat="server" Text="To calculate standard time, insert level of reliability, according to the value in the normal distribution :" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
 &nbsp;&nbsp;&nbsp;<br />
         <br />
 &nbsp;<br />
@@ -125,15 +124,17 @@
         <br />
         <br />
         <br />
+        <asp:Label ID="Label20" runat="server" ForeColor="#000099" style="font-size: x-large; font-weight: 700" Text="To calculate minimum number of observations required and inaccuracy obtained sample reliability level, please fill the fields:" Visible="False"></asp:Label>
         <br />
-        <asp:Label ID="Label10" runat="server" Text="To calculate number of observations required, please enter minimum time prencentage for a cycle  " Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
+        <br />
+        <asp:Label ID="Label10" runat="server" Text="Insert minimum prencentage from cycle time " Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox3" runat="server" Visible="False" Width="41px"></asp:TextBox>
         &nbsp;&nbsp;
-        <asp:Label ID="Label14" runat="server" Text="%" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#003399"></asp:Label>
+        <asp:Label ID="Label14" runat="server" Text="%" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
         &nbsp; &nbsp;&nbsp;<br />
         <asp:Label ID="Label7" runat="server" Text="Insert inaccuracy permitted:" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
-        <asp:TextBox ID="TextBox2" runat="server" Visible="False"></asp:TextBox>
+        <asp:TextBox ID="TextBox2" runat="server" Visible="False" AccessKey="&amp;"></asp:TextBox>
         &nbsp;&nbsp;&nbsp; &nbsp;
         <asp:Button ID="Button10" runat="server" OnClick="Button8_Click" Text="OK" Visible="False" MaintainScrollPositionOnPostback="true" BorderWidth="1px" Font-Bold="True" Font-Size="Medium" ForeColor="#003366" />
         <br />
@@ -176,7 +177,7 @@
         <br />
         <br />
         <br />
-        <asp:Label ID="Label13" runat="server" Text="Calculation of productivity percentage per hour  by a certain efficiency, please enter the percentage required efficiency:" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
+        <asp:Label ID="Label13" runat="server" Text="Calculation of productivity per hour  by a certain efficiency, please enter the percentage required efficiency:" Visible="False" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" style="font-size: x-large" ForeColor="#000099"></asp:Label>
         &nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox4" runat="server" Visible="False"></asp:TextBox>
         &nbsp;&nbsp;&nbsp;&nbsp;

@@ -649,6 +649,7 @@ namespace WebApplication4
         {
             if (TextBox1.Text.Contains('-')) //Check if the number is negative
                 error0.Text = "You can not insert a negative value";
+           
             else{
                 error0.Text = ""; //delet error
                 try
@@ -662,6 +663,7 @@ namespace WebApplication4
 
                     Button10.Visible = true;
                     TextBox3.Visible = true;
+                    Label20.Visible = true;
                     Label10.Visible = true;
                     Label7.Visible = true;
                     TextBox2.Visible = true;
@@ -787,6 +789,7 @@ namespace WebApplication4
             table2.Visible = false;
             Label5.Visible = false;
             Label12.Visible = false;
+            Label20.Visible = false;
             Label10.Visible = false;
             Label14.Visible = false;
             Label15.Visible = false;
