@@ -42,7 +42,7 @@
         <br />
         <br />
         <br />
-        <span class="auto-style3">Choose the location of the value in the column</span>&nbsp; <asp:DropDownList ID="cyce" runat="server" Font-Bold="True" style="font-size: medium">
+        <span class="auto-style3">Choose the location of the value in the row</span>&nbsp; <asp:DropDownList ID="cyce" runat="server" Font-Bold="True" style="font-size: medium">
         </asp:DropDownList>
         <br />
         <br />

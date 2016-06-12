@@ -514,7 +514,6 @@ namespace WebApplication4
                         temp1 = (double)Math.Sqrt(temp3);
                         Ci = Math.Round(temp1, 2);
                         Ni = Math.Round((double)Math.Pow((K * Ci) / (R * X), 2), 2);
-
                     }
                     if (count == temp + 2)
                     {
@@ -846,11 +845,9 @@ namespace WebApplication4
 
                     Session.Add("cyc", cycBox.Text);
                     Session.Add("colarry", colarry);
-
                 }
                 catch { error1.Text = "Error in the text!"; }
             }
-
         }
 
         protected void Button11_Click(object sender, EventArgs e)
@@ -869,10 +866,8 @@ namespace WebApplication4
                     double q = Math.Round((6000 / sumZ), 2);
                     Label18.Text = "" + (q * (qe / 100));
 
-
                     Session.Add("cyc", cycBox.Text);
                     Session.Add("colarry", colarry);
-
                 }
                 catch { error2.Text = "Error in the text"; }
             }
