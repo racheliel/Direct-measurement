@@ -73,7 +73,6 @@ namespace WebApplication4
 
                             row1[count] = j;
                             count++;
-
                         }
                         dt.Rows.Add(row1);
                     }
@@ -104,8 +103,6 @@ namespace WebApplication4
                   else
                       error.Text = "You can not insert wrong value";
             }
-            
-
         }
 
         public void change(double val)
@@ -124,15 +121,12 @@ namespace WebApplication4
                     {
                         if (i.Row == row)
                         {
-
                             colArryNew.AddLast(newcol);
-
                         }
                         else
                         {
                             colArryNew.AddLast(i);
                         }
-
                     }
                     Session.Add("cyc", cycText);
                     Session.Add("colarry", colArryNew);
@@ -140,12 +134,9 @@ namespace WebApplication4
 
                     Response.Redirect("~/WebForm1.aspx");
                 }
-            
-
         }
         public LinkedList<string> editData(int row, LinkedList<string> str, int i, string newVal)
         {
-
             int count = 1;
             LinkedList<string> newStr = new LinkedList<string>();
             foreach (string j in str)
@@ -160,11 +151,8 @@ namespace WebApplication4
                     newStr.AddLast(j);
                     count++;
                 }
-
             }
-
             return newStr;
-
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -177,7 +165,5 @@ namespace WebApplication4
             Session.Add("flag", 1);
             Response.Redirect("~/WebForm5.aspx");
         }
-
-
     }
 }

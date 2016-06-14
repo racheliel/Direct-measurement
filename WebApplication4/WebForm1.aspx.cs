@@ -22,9 +22,9 @@ namespace WebApplication4
         LinkedList<valInRow> colarry4;
         double[] tempstr;
         int[] tempStr2;
+
         protected void Page_Load(object sender, EventArgs e)
         { 
-  
             if (sumZ == 0 && Label12.Text!="")
             {
                 try
@@ -35,8 +35,6 @@ namespace WebApplication4
             }
             colarry3 = new LinkedList<valInRow>();
             colarry4 = new LinkedList<valInRow>();
-
-
 
             if ((LinkedList<valInRow>)(Session["colarry"]) == null)
             {
@@ -62,12 +60,7 @@ namespace WebApplication4
                     error.Text = "Insert number of cycles";
                 }
             }
-
         }
-
-
-
-
 
         public void drowTable(int cyc)
         {
@@ -111,7 +104,6 @@ namespace WebApplication4
                                     row1["PFD allowance (%)"] = j ;
                                     break;
                                 }
-
                                 row1[count] = j;
                                 count++;
                         }
@@ -129,7 +121,6 @@ namespace WebApplication4
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
             if (e.CommandName.CompareTo("edit") == 0)
             {
                 LinkedList<String> str = new LinkedList<String>();
@@ -187,7 +178,7 @@ namespace WebApplication4
                     Session.Add("str", str);
                     Session.Add("flag", 0);
                     Response.Redirect("~/WebForm5.aspx");
-                    // drowTable(cyc);
+                    //drowTable(cyc);
                 }
                 catch
                 {
@@ -399,7 +390,6 @@ namespace WebApplication4
             dt.Columns.Add("Weight", typeof(string));
             dt.Columns.Add("Cumulative weight", typeof(string));
 
-
             Array.Sort(tempstr);
        
             int k = 1;
@@ -447,14 +437,11 @@ namespace WebApplication4
             double sum = 0;
             foreach(double i in tempstr)
             {
-
                if (i != 0)
                {
-
                    sum += Convert.ToDouble(dt.Rows[k][4]);
                    dt.Rows[k][5] = "" + sum;
                    k++;
-
                }
                 if (i == number_of_cycles_required)
                 {
@@ -680,7 +667,6 @@ namespace WebApplication4
 
         private double getUCLi(double si,double aveg) //Calculating upper control limit
         {
-            
             double UCLi = 0;
             try { 
                K = Convert.ToDouble(TextBox1.Text);

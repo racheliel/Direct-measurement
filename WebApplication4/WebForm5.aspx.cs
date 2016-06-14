@@ -18,6 +18,7 @@ namespace WebApplication4
         valInRow col ;
         string cycTe;
         int flag = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
           flag = (int)(Session["flag"]);
@@ -51,14 +52,12 @@ namespace WebApplication4
                     }
                     if (str.Count == cycel + 3)
                     {
-                        
                         Label2.Text = "You finished to insert the required values";
                         val.Visible = false;
                         ok.Visible = false;
                     }
                 }
                 Label1.Text = "*"+ ((cycel + 3) - str.Count()) + " more values left to insert";
-         
             }
             row = (int)(Session["row"]);
             colarry = (LinkedList<valInRow>)(Session["colarry"]);
@@ -84,8 +83,6 @@ namespace WebApplication4
                     val.Text = "";
                 }
             }
- 
-
         }
 
         public void addToStr(double k)
@@ -122,11 +119,10 @@ namespace WebApplication4
                 error.Text = "";
                 add();
             }
-
         }
+
         private void add()
         {
-
             if (str.Count < cycel + 3)
             {
                 err.Text += "Please add " + (cycel + 3) + " Values";
