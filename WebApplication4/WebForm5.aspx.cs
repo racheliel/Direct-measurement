@@ -39,22 +39,28 @@ namespace WebApplication4
                     if (str.Count == cycel)
                     {
                         Label2.Text = "insert rate of action (%)";
+                        finish.Visible = false;
                     }
                     if (str.Count == cycel + 1)
                     {
                         Label2.Text = "insert frequency";
                         Label3.Visible = true;
                         TextBox1.Visible = true;
+                        finish.Visible = false;
                     }
                     if (str.Count == cycel + 2)
                     {
-                        Label2.Text = "insert PFD allowance (%)";
+                        Label8.Visible = true;
+                        finish.Visible = false;
+                        Label2.Text = "insert PFD allowance 100 + ";
+                        Label8.Text = "%";
                     }
                     if (str.Count == cycel + 3)
                     {
                         Label2.Text = "You finished to insert the required values";
                         val.Visible = false;
                         ok.Visible = false;
+                        finish.Visible = false;
                     }
                 }
                 Label1.Text = "*"+ ((cycel + 3) - str.Count()) + " more values left to insert";
@@ -65,14 +71,27 @@ namespace WebApplication4
 
         protected void ok_Click(object sender, EventArgs e)
         {
-            if (val.Text.Contains('-')) //Check if the number is negative
+            if (val.Text.Contains('-') || TextBox1.Text.Contains("-")) //Check if the number is negative
                 err.Text = "You can not insert a negative value";
             else {
-                //val.Text = "";
                 try
                 {
-                    double temp = Convert.ToDouble(val.Text);
-                    addToStr(temp);
+                    if(str.Count == cycel + 2 && val.Text.Equals("0"))
+                    {
+                        double temp = Convert.ToDouble(val.Text);
+                        addToStr(temp);
+                    }
+                    else if (val.Text.Equals("0") || TextBox1.Text.Equals("0"))
+                    {
+                        err.Text = "You can not insert zero";
+                        val.Text = "";
+                        TextBox1.Text = "";
+                    }
+                    else
+                    {
+                        double temp = Convert.ToDouble(val.Text);
+                        addToStr(temp);
+                    }
                 }
                 catch
                 {
@@ -81,6 +100,7 @@ namespace WebApplication4
                     else
                         err.Text = "You can not insert wrong value";
                     val.Text = "";
+                    TextBox1.Text = "";
                 }
             }
         }
@@ -149,7 +169,7 @@ namespace WebApplication4
                     }
                 }
                 if (flag == 0)
-                colarry.AddLast(col);
+                         colarry.AddLast(col);
                 Session.Add("cyc", cycTe);
                 Session.Add("colarry", colarry);
                 Session.Add("row", row);
@@ -162,10 +182,22 @@ namespace WebApplication4
             add();
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
+        protected void finish_Click(object sender, EventArgs e)
         {
+            int size = str.Count;
+            if (str.Count == 0)
+                err.Text = "You must enter at least one value";
+            else {
+                for (int i = 1; i <= (cycel - size); i++)
+                {
+                    str.AddLast("0");
+                }
+                Session.Add("str", str);
+                Response.Redirect("~/WebForm5.aspx");
+            }
 
         }
+
 
     }
 }

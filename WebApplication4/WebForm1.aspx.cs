@@ -31,7 +31,7 @@ namespace WebApplication4
                 {
                     sumZ = Convert.ToDouble(Label12.Text);
                 }
-                catch { error.Text = "Errror"; }
+                catch { error.Text = "Error"; }
             }
             colarry3 = new LinkedList<valInRow>();
             colarry4 = new LinkedList<valInRow>();
@@ -221,7 +221,7 @@ namespace WebApplication4
             dt.Columns.Add("Standard deviation", typeof(string)); //σ
             dt.Columns.Add("Upper control limit", typeof(string));
             dt.Columns.Add("Lower control limit", typeof(string));
-            dt.Columns.Add("Several measurements", typeof(string));
+            dt.Columns.Add("Number of measurements", typeof(string));
             dt.Columns.Add("Time corrected", typeof(string));
             dt.Columns.Add("Basic time", typeof(string)); //τ
             dt.Columns.Add("Standard time", typeof(string));
@@ -234,21 +234,21 @@ namespace WebApplication4
             double zi = 0;
             double ti = 0;
             int temp = 0;
-
+            int t = 0;
             foreach (valInRow i in colarry2)
             {
                 DataRow row1 = dt.NewRow();
                 row1["Element"] = i.Row + 1;
                 count = 1;
-                temp = i.getValSize(i.Val) - 3;
+                temp = i.getValSizeWithOutZero(i.Val) - 3;
                 temp8 = avg(i.Val);               
                 ni = temp;
                 aveg = (temp8 / ni);
                 si = 0;
-               
+                t = 0;
                 foreach (string j in i.Val)
                 {
-                    if (count == temp + 1)
+                    if (count == temp + 1+t)
                     {
                          row1["Rate (%)"] = j;
                          row1["Average"] = "" + Math.Round(aveg, 2);
@@ -259,15 +259,15 @@ namespace WebApplication4
                          temp1 = (double)Math.Sqrt(temp3);
 
                          row1["Standard deviation"] = "" + Math.Round(temp1, 2);
-                         row1["Several measurements"] = "" + Math.Round(ni, 2) ;
+                         row1["Number of measurements"] = "" + Math.Round(ni, 2) ;
                          ti = aveg * temp4;
-                       
+                        
                          row1["Time corrected"] = "" + Math.Round(ti, 2) ;
                          row1["Upper control limit"] = "" +  Math.Round(getUCLi(temp1,aveg), 2);
                          row1["Lower control limit"] = "" + Math.Round(getLCLi(temp1, aveg), 2) ;
                     }
 
-                    if (count == temp + 2)
+                    if (count == temp + 2 + t)
                     {
                         row1["Frequency"] = j;
                         temp6 = Convert.ToDouble(j);
@@ -275,7 +275,7 @@ namespace WebApplication4
                         row1["Basic time"] = "" +  Math.Round(temp5, 2);
                     }
 
-                    if (count == temp + 3)
+                    if (count == temp + 3 + t)
                     {
                         row1["PFD allowance (%)"] = j;
                         temp7 = (Convert.ToDouble(j)/100) + 1;
@@ -285,7 +285,12 @@ namespace WebApplication4
                     }
                     else
                     {
-                        si += (double)Math.Pow(sii(aveg, j), 2);      
+                        if (!j.Equals("0"))
+                            si += (double)Math.Pow(sii(aveg, j), 2);
+                        else
+                        {
+                            t++;
+                        }
                     }
                     count++;
                 }
@@ -299,9 +304,8 @@ namespace WebApplication4
 
         private void calTable3(LinkedList<valInRow> colarry2) //Display a 3 table
         {
-            int cyc = cycel;
+        
             int count = 1,k=0;
-
             double sumWi = 0, X = 0, Ci = 0;
             double ni = 0, Ni = 0, NiF = 0;
             //The "temp" used for intermediate calculations
@@ -311,66 +315,72 @@ namespace WebApplication4
             int temp = 0,c2=0;
             LinkedList<String> str;
             valInRow vr; c2 = 1;
-            tempstr = new double[colarry2.Count+1];
+            tempstr = new double[colarry2.Count + 1];
             tempStr2 = new int[colarry2.Count + 1];
-             
+            int t = 0;
+
             foreach (valInRow i in colarry2)
             {
                 str = new LinkedList<String>();
                 count = 1;
-                temp = i.getValSize(i.Val) - 3;
+                temp = i.getValSizeWithOutZero(i.Val) - 3;
                 temp8 = avg(i.Val);
                 ni = temp;
                 aveg = (temp8 / ni);
                 si = 0;
+                t = 0;
                 
                 foreach (string j in i.Val)
                 {
-                    if (count == temp + 1)
-                    {
-                        X = aveg;
-                        R = Convert.ToDouble(TextBox2.Text);
-                        ri = Convert.ToDouble(j) / 100;
-                        temp2 = ni;
-                        temp3 = si / temp2;
-                        temp1 = (double)Math.Sqrt(temp3);
-                        Ci = (temp1);
-                        Ni = (double)Math.Pow((K * Ci) / (R * X), 2);
-                    }
+                        if (count == temp + 1 + t)
+                        {
+                            X = aveg;
+                            R = (Convert.ToDouble(TextBox2.Text)/ 100);
+                            ri = (Convert.ToDouble(j)/100);
+                            temp2 = ni;
+                            temp3 = si / temp2;
+                            temp1 = (double)Math.Sqrt(temp3);
+                            Ci = (temp1);
+                            Ni = (double)Math.Pow((K * Ci) / (R * X), 2);
+                        }
 
-                    if (count == temp + 2)
-                    {
-                        temp6 = Convert.ToDouble(j);
-                        NiF = (int)Math.Ceiling(Ni*(1/temp6)); //Rounds a number up
-                    }
+                        if (count == temp + 2 + t)
+                        {
+                            temp6 = Convert.ToDouble(j);
+                            NiF = (int)Math.Ceiling(Ni / temp6); //Rounds a number up
+                        }
 
-                    if(count == temp + 3)
-                    {
-                        ti = aveg * ri;
-                        temp4 = zi;                   
-                        temp5 = ti * temp6;
-                        temp7 = (Convert.ToDouble(j) / 100) + 1;
-                        temp9 = (temp7 * temp5);
-                        zi =  (temp9 / sumZ);
-                        sumWi += zi ;
-                       
-                        str.AddLast("" + Math.Round(temp9, 2)) ;
-                        str.AddLast("" + Convert.ToInt32(Ni)) ;
-                        str.AddLast("" + Convert.ToInt32(NiF));
-                        str.AddLast("" + Math.Round(zi, 2));
-                        tempStr2[k] = Convert.ToInt32(NiF);
-                        tempstr[k] = Math.Round(sumWi, 2);
+                        if (count == temp + 3 + t)
+                        {
+                            ti = aveg * ri;
+                            temp4 = zi;
+                            temp5 = ti * temp6;
+                            temp7 = (Convert.ToDouble(j)/100) + 1;
+                            temp9 = (temp7 * temp5);
+                            zi = (temp9 / sumZ);
+                            sumWi += zi;
 
-                        str.AddLast("-");
-                        vr = new valInRow(c2,str);
-                        colarry3.AddLast(vr);
-                        c2++;
-                        k++;
-                    }
+                            str.AddLast("" + Math.Round(temp9, 2));
+                            str.AddLast("" + Convert.ToInt32(Ni));
+                            str.AddLast("" + Convert.ToInt32(NiF));
+                            str.AddLast("" + Math.Round(zi, 2));
+                            tempStr2[k] = Convert.ToInt32(NiF);
+                            tempstr[k] = Math.Round(sumWi, 2);
 
+                            str.AddLast("-");
+                            vr = new valInRow(c2, str);
+                            colarry3.AddLast(vr);
+                            c2++;
+                            k++;
+                        }
                     else
                     {
-                        si += (double)Math.Pow(sii(aveg, j), 2);
+                        if (!j.Equals("0"))
+                            si += (double)Math.Pow(sii(aveg, j), 2);
+                        else
+                        {
+                            t++;
+                        }
                     }
                     count++;
                 }
@@ -379,7 +389,6 @@ namespace WebApplication4
 
         private void drowTable3() //Display a 3 table
         {
-            int cyc = cycel;
             DataTable dt = new DataTable();
             int count = 1;
 
@@ -411,16 +420,14 @@ namespace WebApplication4
                     }
                     if (count == 3)
                     {
-                        row1["Required cycles"] = Convert.ToDouble(s);
+                        row1["Required cycles"] = s;// Convert.ToDouble(s);
                     }
                     if (count == 4)
                     {
                         row1["Weight"] = s;
-
                     }
                     if (count == 5)
                     {
-
                         row1["Cumulative weight"] = s;
                     }
                     count++;
@@ -466,7 +473,6 @@ namespace WebApplication4
 
         private void calTable4(LinkedList<valInRow> colarry2) //Display a 3 table
         {
-            int cyc = cycel;
             int count = 1;
             sumRW = 0;
             double sumWi = 0, X = 0, Ci = 0;
@@ -478,37 +484,39 @@ namespace WebApplication4
             int temp = 0, c2 = 0;
             LinkedList<String> str;
             valInRow vr; c2 = 1;
+            int t = 0;
 
             foreach (valInRow i in colarry2)
             {
                 str = new LinkedList<String>();
                 count = 1;
-                temp = i.getValSize(i.Val) - 3;
+                temp = i.getValSizeWithOutZero(i.Val) - 3;
                 temp8 = avg(i.Val);
                 ni = temp;
                 aveg = (temp8 / ni);
                 si = 0;
+                t = 0;
 
                 foreach (string j in i.Val)
                 {
-                    if (count == temp + 1)
+                    if (count == temp + 1 + t)
                     {
                         X = Math.Round(aveg, 2);
-                        R = Convert.ToDouble(TextBox2.Text);
-                        ri = Convert.ToDouble(j) / 100;
+                        R = (Convert.ToDouble(TextBox2.Text)/100);
+                        ri = Convert.ToDouble(j)/ 100;
                         temp2 = ni;
                         temp3 = si / temp2;
                         temp1 = (double)Math.Sqrt(temp3);
                         Ci = Math.Round(temp1, 2);
                         Ni = Math.Round((double)Math.Pow((K * Ci) / (R * X), 2), 2);
                     }
-                    if (count == temp + 2)
+                    if (count == temp + 2 + t)
                     {
                         temp6 = Convert.ToDouble(j);
                         NiF = Math.Round(Ni * (1 / temp6), 2);
                     }
 
-                    if (count == temp + 3)
+                    if (count == temp + 3 + t)
                     {
                         ti = aveg * ri;
                         temp4 = zi;
@@ -525,7 +533,7 @@ namespace WebApplication4
                         str.AddLast("" + X);
                         str.AddLast("" + Ci);
                         str.AddLast("" + ni);
-                        str.AddLast("" + (zi * 100 ) + "%");
+                        str.AddLast("" + (zi * 100) + "%");
                         str.AddLast("" + Ri);
                         str.AddLast("" + sumWi);
                         vr = new valInRow(c2, str);
@@ -534,7 +542,12 @@ namespace WebApplication4
                     }
                     else
                     {
-                        si += (double)Math.Pow(sii(aveg, j), 2);
+                        if (!j.Equals("0"))
+                            si += (double)Math.Pow(sii(aveg, j), 2);
+                        else
+                        {
+                            t++;
+                        }
                     }
                     count++;
                 }
@@ -543,14 +556,14 @@ namespace WebApplication4
 
         private void drowTable4() //Display a 3 table
         {
-            int cyc = cycel;
+
             DataTable dt = new DataTable();
             int count = 1;
 
             dt.Columns.Add("Element", typeof(Int16));
             dt.Columns.Add("Average", typeof(string));
             dt.Columns.Add("Standard deviation", typeof(string));
-            dt.Columns.Add("Several measurements", typeof(string));
+            dt.Columns.Add("Number of measurements", typeof(string));
             dt.Columns.Add("Weight (w)", typeof(string));
             dt.Columns.Add("Inaccuracy (r)", typeof(string));
             dt.Columns.Add("r*w", typeof(string));
@@ -560,7 +573,6 @@ namespace WebApplication4
                 row1["Element"] = i.Row;
                 count = 1;
 
-                            
                 foreach (string s in i.Val)
                 {
                     if (count == 1)
@@ -573,7 +585,7 @@ namespace WebApplication4
                     }
                     if (count == 3)
                     {
-                        row1["Several measurements"] = s;
+                        row1["Number of measurements"] = s;
                     }
                     if (count == 4)
                     {
@@ -635,8 +647,9 @@ namespace WebApplication4
         {
             if (TextBox1.Text.Contains('-')) //Check if the number is negative
                 error0.Text = "You can not insert a negative value";
-           
-            else{
+            else if(TextBox1.Text.Equals("0"))
+                error0.Text = "You can not insert a zero";
+            else {
                 error0.Text = ""; //delet error
                 try
                 {
@@ -651,6 +664,8 @@ namespace WebApplication4
                     TextBox3.Visible = true;
                     Label20.Visible = true;
                     Label10.Visible = true;
+                    Label21.Visible = true;
+                    Label14.Visible = true;
                     Label7.Visible = true;
                     TextBox2.Visible = true;
                     LinkedList<valInRow> colarry2 = new LinkedList<valInRow>();
@@ -670,9 +685,9 @@ namespace WebApplication4
             double UCLi = 0;
             try { 
                K = Convert.ToDouble(TextBox1.Text);
-                UCLi = aveg + (K) * si;
+               UCLi = aveg + (K) * si;
                
-                return UCLi;
+               return UCLi;
             }
             catch { return 0; }
         }
@@ -708,48 +723,49 @@ namespace WebApplication4
                 count = 1;
                 newSTR = new LinkedList<string>();
                 temp8 = avg(i.Val);
-                ni = i.Val.Count - 3;
-                aveg = (temp8 / ni);
+                ni = i.getValSizeWithOutZero(i.Val) - 3;
+                int cycelWithOutZero = i.getValSizeWithOutZero(i.Val)-3;
+                aveg = (temp8 / (ni));
                 si = 0;
                 foreach (string j in i.Val)
                 {
-                    if (count > cycel )
-                    {
-                       
-                        temp2 = ni;
-                        temp3 = si / temp2;
-                        temp1 = (double)Math.Sqrt(temp3);
-                     
-                        si = temp1;
-                        
-                        UCLi = getUCLi(Math.Round(si, 2), aveg);
-                        LCLi = getLCLi(Math.Round(si, 2), aveg);
-                        newSTR = new LinkedList<string>();
-                        c2 = 1;
-                        foreach (string j2 in i.Val)
+                        if (count > cycelWithOutZero)
+                        {
+                            temp2 = ni;
+                            temp3 = si / temp2;
+                            temp1 = (double)Math.Sqrt(temp3);
+
+                            si = temp1;
+
+                            UCLi = getUCLi(Math.Round(si, 2), aveg);
+                            LCLi = getLCLi(Math.Round(si, 2), aveg);
+                            newSTR = new LinkedList<string>();
+                            c2 = 1;
+                            foreach (string j2 in i.Val)
                             {
                                 temp4 = Convert.ToDouble(j2);
-                                                                   
-                                if(c2 >cycel)
+
+                                if (c2 > ni)
                                 {
                                     newSTR.AddLast(j2);
                                 }
-                                else if(temp4<=UCLi && temp4>=LCLi)
+                                else if (temp4 <= UCLi && temp4 >= LCLi)
                                 {
                                     newSTR.AddLast(j2);
-                                }  c2++;
+                                }
+                                c2++;
                             }
-                        c++;
-                        newVR = new valInRow(c,newSTR);
-                        colarry2.AddLast(newVR);
-                        break;
-                    }
+                            c++;
+                            newVR = new valInRow(c, newSTR);
+                            colarry2.AddLast(newVR);
+                            break;
+                        }
 
-                    else
-                    {
-                        si += (double)Math.Pow(sii(aveg, j), 2); 
-                        count++;
-                    }
+                        else
+                        {
+                            si += (double)Math.Pow(sii(aveg, j), 2);
+                            count++;
+                        }
                 }
             }
         }
@@ -777,6 +793,7 @@ namespace WebApplication4
             Label20.Visible = false;
             Label10.Visible = false;
             Label14.Visible = false;
+            Label21.Visible = false;
             Label15.Visible = false;
             Label16.Visible = false;
             Label8.Visible = false;
@@ -784,6 +801,7 @@ namespace WebApplication4
             Label19.Visible = false;
             Label13.Visible = false;
             Label11.Visible = false;
+            Label22.Visible = false;
             Label17.Visible = false;
             Label18.Visible = false;
             Button1.Visible = true;
@@ -799,6 +817,8 @@ namespace WebApplication4
         {
             if (TextBox2.Text.Contains('-') || TextBox3.Text.Contains('-')) //Check if the number is negative
                 error1.Text = "You can not insert a negative value";
+            else if(TextBox2.Text.Equals("0") || TextBox3.Text.Equals("0"))
+                error1.Text = "You can not insert a zero";
             else {
                 error1.Text = ""; //delet error
                 try
@@ -816,9 +836,10 @@ namespace WebApplication4
                     TextBox4.Visible = true;
                     Button11.Visible = true;
                     Label17.Visible = true;
+                    Label23.Visible = true;
 
                     RemovalExceptions(colarry2);
-                    calTable3(colarry2);
+                    calTable3(colarry2);                 
                     drowTable3();
                     calTable4(colarry2);
                     drowTable4();
@@ -826,7 +847,7 @@ namespace WebApplication4
                     Label15.Text = " " + row + " cycles";
                     Label15.Visible = true;
                     Label19.Text = "" + sumRW;
-                    double q = Math.Round((6000 / sumZ), 2);
+                    double q = Math.Round((3600 / sumZ), 2);
                     Label17.Text = "" + q;
 
                     Session.Add("cyc", cycBox.Text);
@@ -840,6 +861,8 @@ namespace WebApplication4
         {
             if (TextBox4.Text.Contains('-')) //Check if the number is negative
                 error2.Text = "You can not insert a negative value";
+            else if (TextBox4.Text.Equals("0"))
+                error2.Text = "You can not insert a zero";
             else {
                 error2.Text = ""; //delet error
                 try
@@ -848,6 +871,7 @@ namespace WebApplication4
                     error.Text = "";
 
                     Label11.Visible = true;
+                    Label22.Visible = true;
                     Label18.Visible = true;
                     double q = Math.Round((6000 / sumZ), 2);
                     Label18.Text = "" + (q * (qe / 100));

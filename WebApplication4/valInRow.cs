@@ -33,13 +33,18 @@ namespace WebApplication4
         {
             return v.Count;
         }
-
-
-
-     
-
-
-
+        public int getValSizeWithOutZero(LinkedList<string> v)
+        {
+            int size = 0;
+            int count = 1;
+            foreach (string i in v)
+            {
+                if (!i.Equals("0") || count == v.Count)
+                    size++;
+                count++;
+            }
+            return size;
+        }
     }
 
 }

@@ -100,3 +100,45 @@ C:\Users\Shelly\Desktop\לימודים\שנה ב\סמסטר ב\מודלים סט
 C:\Users\Shelly\Desktop\לימודים\שנה ב\סמסטר ב\מודלים סטוכסטיים\פרוייקט\WebApplication471 (1)\WebApplication471\WebApplication4\obj\Debug\WebApplication4.csprojResolveAssemblyReference.cache
 C:\Users\Shelly\Desktop\לימודים\שנה ב\סמסטר ב\מודלים סטוכסטיים\פרוייקט\WebApplication471 (1)\WebApplication471\WebApplication4\obj\Debug\WebApplication4.dll
 C:\Users\Shelly\Desktop\לימודים\שנה ב\סמסטר ב\מודלים סטוכסטיים\פרוייקט\WebApplication471 (1)\WebApplication471\WebApplication4\obj\Debug\WebApplication4.pdb
+C:\Users\Shelly\Desktop\WebApplication471-1\WebApplication471 (1)\WebApplication471\WebApplication4\bin\WebApplication4.dll.config
+C:\Users\Shelly\Desktop\WebApplication471-1\WebApplication471 (1)\WebApplication471\WebApplication4\bin\WebApplication4.dll
+C:\Users\Shelly\Desktop\WebApplication471-1\WebApplication471 (1)\WebApplication471\WebApplication4\bin\WebApplication4.pdb
+C:\Users\Shelly\Desktop\WebApplication471-1\WebApplication471 (1)\WebApplication471\WebApplication4\obj\Debug\WebApplication4.csprojResolveAssemblyReference.cache
+C:\Users\Shelly\Desktop\WebApplication471-1\WebApplication471 (1)\WebApplication471\WebApplication4\obj\Debug\WebApplication4.dll
+C:\Users\Shelly\Desktop\WebApplication471-1\WebApplication471 (1)\WebApplication471\WebApplication4\obj\Debug\WebApplication4.pdb
+C:\Users\Shelly\Desktop\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\bin\WebApplication4.dll.config
+C:\Users\Shelly\Desktop\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\bin\WebApplication4.dll
+C:\Users\Shelly\Desktop\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\bin\WebApplication4.pdb
+C:\Users\Shelly\Desktop\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\obj\Debug\WebApplication4.csprojResolveAssemblyReference.cache
+C:\Users\Shelly\Desktop\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\obj\Debug\WebApplication4.dll
+C:\Users\Shelly\Desktop\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\obj\Debug\WebApplication4.pdb
+C:\Users\חן\Downloads\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\bin\WebApplication4.dll.config
+C:\Users\חן\Downloads\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\bin\WebApplication4.dll
+C:\Users\חן\Downloads\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\bin\WebApplication4.pdb
+C:\Users\חן\Downloads\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\obj\Debug\WebApplication4.csprojResolveAssemblyReference.cache
+C:\Users\חן\Downloads\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\obj\Debug\WebApplication4.dll
+C:\Users\חן\Downloads\WebApplication4-1\WebApplication4 (1)\WebApplication4\WebApplication4\obj\Debug\WebApplication4.pdb
+C:\Users\חן\Downloads\מעודכן 18.6\WebApplication4\bin\WebApplication4.dll.config
+C:\Users\חן\Downloads\מעודכן 18.6\WebApplication4\bin\WebApplication4.dll
+C:\Users\חן\Downloads\מעודכן 18.6\WebApplication4\bin\WebApplication4.pdb
+C:\Users\חן\Downloads\מעודכן 18.6\WebApplication4\obj\Debug\WebApplication4.csprojResolveAssemblyReference.cache
+C:\Users\חן\Downloads\מעודכן 18.6\WebApplication4\obj\Debug\WebApplication4.dll
+C:\Users\חן\Downloads\מעודכן 18.6\WebApplication4\obj\Debug\WebApplication4.pdb
+C:\Users\חן\Downloads\מעודכן 19.6\מעודכן 18.6\WebApplication4\bin\WebApplication4.dll.config
+C:\Users\חן\Downloads\מעודכן 19.6\מעודכן 18.6\WebApplication4\bin\WebApplication4.dll
+C:\Users\חן\Downloads\מעודכן 19.6\מעודכן 18.6\WebApplication4\bin\WebApplication4.pdb
+C:\Users\חן\Downloads\מעודכן 19.6\מעודכן 18.6\WebApplication4\obj\Debug\WebApplication4.csprojResolveAssemblyReference.cache
+C:\Users\חן\Downloads\מעודכן 19.6\מעודכן 18.6\WebApplication4\obj\Debug\WebApplication4.dll
+C:\Users\חן\Downloads\מעודכן 19.6\מעודכן 18.6\WebApplication4\obj\Debug\WebApplication4.pdb
+C:\Users\Shelly\Desktop\מעודכן 19.6\מעודכן 19.6\מעודכן 18.6\WebApplication4\bin\WebApplication4.dll.config
+C:\Users\Shelly\Desktop\מעודכן 19.6\מעודכן 19.6\מעודכן 18.6\WebApplication4\bin\WebApplication4.dll
+C:\Users\Shelly\Desktop\מעודכן 19.6\מעודכן 19.6\מעודכן 18.6\WebApplication4\bin\WebApplication4.pdb
+C:\Users\Shelly\Desktop\מעודכן 19.6\מעודכן 19.6\מעודכן 18.6\WebApplication4\obj\Debug\WebApplication4.csprojResolveAssemblyReference.cache
+C:\Users\Shelly\Desktop\מעודכן 19.6\מעודכן 19.6\מעודכן 18.6\WebApplication4\obj\Debug\WebApplication4.dll
+C:\Users\Shelly\Desktop\מעודכן 19.6\מעודכן 19.6\מעודכן 18.6\WebApplication4\obj\Debug\WebApplication4.pdb
+C:\Users\Shelly\Desktop\מעודכן-19.6\מעודכן 19.6\WebApplication4\bin\WebApplication4.dll.config
+C:\Users\Shelly\Desktop\מעודכן-19.6\מעודכן 19.6\WebApplication4\bin\WebApplication4.dll
+C:\Users\Shelly\Desktop\מעודכן-19.6\מעודכן 19.6\WebApplication4\bin\WebApplication4.pdb
+C:\Users\Shelly\Desktop\מעודכן-19.6\מעודכן 19.6\WebApplication4\obj\Debug\WebApplication4.csprojResolveAssemblyReference.cache
+C:\Users\Shelly\Desktop\מעודכן-19.6\מעודכן 19.6\WebApplication4\obj\Debug\WebApplication4.dll
+C:\Users\Shelly\Desktop\מעודכן-19.6\מעודכן 19.6\WebApplication4\obj\Debug\WebApplication4.pdb

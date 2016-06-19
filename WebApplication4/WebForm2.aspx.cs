@@ -13,6 +13,9 @@ namespace WebApplication4
         int cycel = 0;
         int ele = 0;
         int row = -1;
+        int location = 1;
+        Boolean flag = false;
+        Boolean flag2 = false;
         LinkedList<valInRow> colarry;
         LinkedList<String> str;
         valInRow col;
@@ -54,7 +57,6 @@ namespace WebApplication4
                     count = 1;
                     if (i.Row == row)
                     {
-
                         foreach (string j in i.Val)
                         {
                             if (count == cycel + 1)
@@ -70,7 +72,6 @@ namespace WebApplication4
                                 row1["PFD allowance (%)"] = j;
                                 break;
                             }
-
                             row1[count] = j;
                             count++;
                         }
@@ -81,27 +82,55 @@ namespace WebApplication4
                 GridView1.DataBind();
             }
 
-            for (int i = 0; i < cycel + 3; i++)
-            {
-                cyce.Items.Add("" + (i + 1));
-            }
-
+                for (int i = 0; i < cycel + 3; i++)
+                {
+                    cyce.Items.Add("" + (i + 1));
+                    location++;
+             }
+            
             col = new valInRow(row, str);
         }
 
         protected void changeButt_Click(object sender, EventArgs e)
         {
-            try 
-            {
-                double val = Convert.ToDouble(newVal.Text);
-                change(val);
+            string locationOfRate = Convert.ToString(cycel-3);
+            string locationOfFrequency = Convert.ToString(cycel-2);
+            
+            if (!newVal.Text.Contains('-')) {
+                try
+                {
+                    if((newVal.Text.Equals("0") && flag2))
+                    {
+                        double val = Convert.ToDouble(newVal.Text);
+                        change(val);
+                    }
+                    else if ((newVal.Text.Equals("0") && flag) || newVal.Text.Equals("0"))
+                    {
+                        error.Text = "You can not insert zero";
+                        newVal.Text = "";
+                    }
+                    else
+                    {
+                        double val = Convert.ToDouble(newVal.Text);
+                        change(val);
+                    }
+                }
+                catch
+                {
+                    if (newVal.Text.Equals(""))
+                        error.Text = "You can not insert null value";
+                    else
+                        error.Text = "You can not insert wrong value";
+                }
             }
-            catch
+            else
+                error.Text = "You can not insert a negative value";
+
+            cyce.Items.Clear();
+            for (int i = 0; i < cycel + 3; i++)
             {
-                  if (newVal.Text.Equals(""))
-                      error.Text = "You can not insert null value";
-                  else
-                      error.Text = "You can not insert wrong value";
+                cyce.Items.Add("" + (i + 1));
+                location++;
             }
         }
 
@@ -164,6 +193,14 @@ namespace WebApplication4
             Session.Add("str", str1);
             Session.Add("flag", 1);
             Response.Redirect("~/WebForm5.aspx");
+        }
+
+        protected void cyce_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cyce.SelectedIndex == location - 3 || cyce.SelectedIndex == location - 4)
+                flag = true;
+            if (cyce.SelectedIndex == location - 2)
+                flag2 = true;
         }
     }
 }

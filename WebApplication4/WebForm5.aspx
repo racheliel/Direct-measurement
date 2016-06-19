@@ -15,7 +15,7 @@
             background-color: #F8F8F8;
         }
         #MainTitle{
-              font-family: AR BONNIE;
+              font-family: David;
             font-size: 100px;
              display: block;
              margin-left: auto;
@@ -41,7 +41,7 @@
         <br />
         <br />
         <br />
-        <span class="auto-style1">Insert one value at a time.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<asp:Label ID="Label1" runat="server" ForeColor="#336699" Font-Bold="True" Font-Size="Large" style="font-size: larger"></asp:Label>
+        <span class="auto-style1">Insert one value at a time (seconds)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<asp:Label ID="Label1" runat="server" ForeColor="#336699" Font-Bold="True" Font-Size="Large" style="font-size: larger"></asp:Label>
         <br />
         <br />
         <br />
@@ -55,8 +55,12 @@
         <asp:TextBox ID="val" runat="server" Width="52px"></asp:TextBox>
         <asp:Label ID="Label3" runat="server" Text=":" Visible="False" Font-Bold="True" Font-Size="XX-Large"></asp:Label>
         <asp:TextBox ID="TextBox1" runat="server" Visible="False" Width="45px"></asp:TextBox>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label8" runat="server" Font-Bold="True" Font-Size="Large" style="font-size: x-large" Visible="False"></asp:Label>
+        &nbsp;
+        &nbsp;
         <asp:Button ID="ok" runat="server" OnClick="ok_Click" Text="OK" BorderColor="#003366" BorderWidth="1px" Font-Bold="True" ForeColor="#003366" style="font-size: medium" />
+        &nbsp;&nbsp;&nbsp;
+        <asp:Button ID="finish" runat="server" BorderWidth="2px" Font-Bold="True" ForeColor="#003366" OnClick="finish_Click" style="font-size: medium" Text="Done inserting the cycle's values" Width="395px" BorderStyle="Ridge" Height="31px" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Label ID="err" runat="server" Font-Bold="True" ForeColor="#A60000" style="font-size: x-large" Font-Size="X-Large"></asp:Label>
     
@@ -64,9 +68,16 @@
     
         <br />
     
+        <asp:Label ID="Label9" runat="server"></asp:Label>
+    
+        <br />
+        <asp:Label ID="Label10" runat="server" Font-Bold="True" Font-Size="Large" ForeColor="Gray" Text="If you click the button above without any value , it will be referred as zero and will not be calculated  "></asp:Label>
+        <br />
+    
         <br />
     
         <span class="auto-style2"><strong>The values entered into the table: </strong></span>&nbsp;<asp:Label ID="error" runat="server" Font-Bold="True" ForeColor="#993333" style="font-size: x-large"></asp:Label>
+        <br />
         <br />
         <br />
         <asp:Label ID="Label5" runat="server" Font-Bold="True" Font-Size="Large" ForeColor="Gray" Text="The values you entered cannot be changed on this page."></asp:Label>
